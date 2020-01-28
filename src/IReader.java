@@ -6,4 +6,6 @@ public interface IReader {
 
     public void removeIDCard();
 
+    //
+
 }
