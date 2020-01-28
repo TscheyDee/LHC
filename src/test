@@ -1,0 +1,68 @@
+Jede Komponente ist in einem seperaten Unterverzeichnis
+Im Falle des MemoryStick sind dies die beiden Unterverzeichnisse exchance_component01 und exchange_componenet_02
+Eine Komponente besteht aus dem Interface und der korrespondierenden Realisierung
+Im Falle des MemorySticks sind dies IMemoryStick und MemoryStick
+Die Realisieurng der Komponente beinhaltet einen Port, welche die Services der Komponente entsprechend den Nutzern angibt
+Der Port ist ein sogenannter "distinct interaction point"
+Der Port implementiert das Interface
+Der Port ist eine public inner class in der Realisierung der Komponente
+
+WARUM TRAUT SICH NIEMAND DEN BIRRRA ZU DISSEN
+
+Der Poaart diligiert eine Service -Anfrage an eine innere Methode einer Komponente
+Die inneren Methoden einer Komponente haben die Sichtbarkeit PRIVATE und sind folgkich von außen nicht aufrufbar
+durch diese Defintion der SIchtbarkeit wird das Prinzip der Kapselung einer Komponente realisiert
+Eine Komponente ist nicht instanziierbar
+
+nicht instanziierbarkeit wird realisiert durch
+- sie definieren ein Attribut instance mit der Sichtbarkeit und dem Schlüsselwort static
+- diesem Attribut isntance weisen sie eine Instanz unmittelbar in der Komponente zu
+- das heißt eine Komponente wird nicht von außen instanziiert (wie bei Klassen), sondern eine Komponente instanzieert sich per Definition selbst
+- es wird eine statische Methode getInstance() welche Reflection einen Zugriff auf dieses Attribut ermöglicht
+
+Es wird ein Attribut Port vom Typ Port mit der Sichtbarkeit public definiert
+//Port port;
+Da es sich um den Port um ein Kommunikationskanal um die Außenwelt handelt ist die Sichtbarkeit public
+Da ein eine Komponente nicht instaziierbar ist wird der Konstruktor mit der Sichtbarkeit private definiert
+//private MemoryStcik(){
+    port = new Port();
+}
+innerhalb des Kontruktors wird er Port instanziiert
+Über diese Instanziierung des Ports ist es möglich, dass Nutzer von Außen auf die in der Schnittstelle spezifizierten Services der Komponente von Außen zugreifen können
+
+Um eine Komponente innerhalb einer Application zu nutzen brauche ich drei Attribute
+
+Im ersten Schritt wird über den URL Class Loader und Class.forName die Klasse dynamisch aus dem Java Archive herausgeladen
+
+Im 2. Schritt wird die Methode getInstance() dynamisch aufgerufen und die statische Instanz der Komponente geladen
+
+Im 3. Scritt lade ich die Refferenz auf den Port
+
+
+Für die Automatisierung der Erstellung einer Komponente befindet sich im Verzechnis der Komponente eine Datei build.xml
+Durch doppel click auf den ant task wird die korresponierende Aktion im Ant-Skript (build.xml) ausgeführt
+
+
+3 Komponenten, 3 Verzeichnisse mit Komp
+3 Alogorithmen
+BoyerMoore
+
+
+1 Phase laden des Service aus Komponente
+2. Phase Service auf Experimente anwenden
+
+
+____________________________________________________________________________________________________________________________________________________________________________________
+
+Zielsetzung einer leistungsfähigen SOftwarearchitektur sind hohe Kohäsion und minimale Kopplungen
+Durch die Anwendung/Nutzung eines Eventbuses können dymnamisch sogenannte Subscriber diesen hinzugefügt werden
+In der SOA existiert eine Klasse, welche für die Verwaltung des Eventbuses verantwortlich ist
+In der Vorliegenden Beispiel EmergencyCallBox die vorliegende Instanz
+Diese zentrale Instanz für die Verwaltung des Eventbuses besitzt einen Mechanismus um neue Subscriber für den Eventbus zu registrieren
+Die Klasse Subscriber ist abstrakt, um einen konkreten Subscriber
+Ein konkreter Subscriber besitzt einen Mechanismus (Methode) um auf einen über den EventBus gesandets Event zu reagieren
+
+_____________________________________________________________________________________________________________________________________________________________________________________
+
+
+
