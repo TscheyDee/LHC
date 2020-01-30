@@ -4,18 +4,18 @@ import java.util.Stack;
 public enum Reception {
     instance ;
 
-    private Stack<IDCard> blankIDCards;
+    private Stack<IDCardVisitor> blankIDCards;
     private Employee employee;
     private ReaderTouchpad touchpadReader;
 
 
     public void addBlankIDCard() {
-        IDCard idCard = new IDCard();
+        IDCardVisitor idCard = new IDCardVisitor();
         blankIDCards.add(idCard);
     }
 
     public void createNewIDCard(Visitor visitor, String password) {
-        IDCard idCard = blankIDCards.pop();
+        IDCardVisitor idCard = blankIDCards.pop();
         idCard.setName(visitor.getName());
 
         Date date = new Date();

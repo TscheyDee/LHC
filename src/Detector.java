@@ -9,13 +9,13 @@ public class Detector implements IDetector {
     private static String higgsBosonStructure = "higgs";
     private boolean isActivated;
     private LinkedList<Experiment> experimentList;
-    private ReaderTouchpad touchpadReader;
+    private Reader reader;
 
-    public Detector(boolean isActivated, LinkedList<Experiment> experimentList, IrisScanner reader){
+    public Detector(boolean isActivated, LinkedList<Experiment> experimentList, Reader reader){
         this.higgsBosonStructure = this.higgsBosonStructure;
         this.isActivated = isActivated;
         this.experimentList = experimentList;
-        this.touchpadReader = touchpadReader;
+        this.reader = reader;
     }
 
     public void search(Experiment experiment) {
@@ -100,11 +100,11 @@ public class Detector implements IDetector {
         return experimentList;
     }
 
-    public ReaderTouchpad getTouchpadReader() {
-        return touchpadReader;
+    public Reader getReader() {
+        return reader;
     }
 
-    public void setTouchpadReader(ReaderTouchpad touchpadReader) {
-        this.touchpadReader = touchpadReader;
+    public void setReader(Reader reader) {
+        this.reader = reader;
     }
 }

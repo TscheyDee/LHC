@@ -4,8 +4,6 @@ public enum CardManagement implements ICardManagement {
     instance;
 
     private HashMap<Integer, IDCard> idCardHashMap;
-
-    private IrisScanner reader;
     private ReaderTouchpad touchpadReader;
 
     public boolean verifyIDCard(IDCard idCard){
@@ -16,7 +14,7 @@ public enum CardManagement implements ICardManagement {
     }
 
     public boolean verifyIris(IDCardEmployee idCard){
-        int[][] scannedIris = touchpadReader.scanIris();
+        int[][] scannedIris = touchpadReader.getScanner().getIris();
         int[][] cardIris = idCard.getIrisStructure();
 
         return (scannedIris == cardIris);

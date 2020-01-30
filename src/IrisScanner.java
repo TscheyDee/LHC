@@ -1,6 +1,5 @@
 public class IrisScanner implements IScanner{
 
-    //private String currentEmployeeIris;
     private int[][] currentEmployeeIris;
 
 
@@ -9,21 +8,11 @@ public class IrisScanner implements IScanner{
     }
 
     public void scan(){
-
+        this.currentEmployeeIris = currentEmployeeIris;
     }
-
-    //public String scanIris(Employee employee){
-    //    int[][] iris =  employee.getIris();
-    //
-    //    return "";
-    //}
 
     public int[][] getIris() {
         return currentEmployeeIris;
-    }
-
-    public void scanIris(int[][] currentEmployeeIris) {
-        this.currentEmployeeIris = currentEmployeeIris;
     }
 
 }

@@ -20,5 +20,4 @@ public class MD5Hash extends CryptogrpahyManagement {
             hashtext = "0"+hashtext;
         }
     }
-
 }

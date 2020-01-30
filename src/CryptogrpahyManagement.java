@@ -1,5 +1,7 @@
 public abstract class CryptogrpahyManagement {
 
+
+
     public void encrypt(){
 
     }
