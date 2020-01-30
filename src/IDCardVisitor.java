@@ -9,5 +9,6 @@ public class IDCardVisitor extends IDCard {
     }
 
     public IDCardVisitor() {
+        super();
     }
 }

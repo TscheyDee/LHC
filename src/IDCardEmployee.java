@@ -14,6 +14,10 @@ public class IDCardEmployee extends IDCard {
         this.secondChip = secondChip;
     }
 
+    public IDCardEmployee() {
+        super();
+    }
+
     public Chip getSecondChipChip() {
         return secondChip;
     }

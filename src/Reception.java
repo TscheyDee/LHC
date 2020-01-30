@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Stack;
 
@@ -7,6 +9,7 @@ public enum Reception {
     private Stack<IDCardVisitor> blankIDCards;
     private Employee employee;
     private ReaderTouchpad touchpadReader;
+    private CardManagement cardManagement;
 
 
     public void addBlankIDCard() {
@@ -16,18 +19,15 @@ public enum Reception {
 
     public void createNewIDCard(Visitor visitor, String password) {
         IDCardVisitor idCard = blankIDCards.pop();
-        idCard.setName(visitor.getName());
+        cardManagement.createIDCardVisitor(visitor, idCard, password);
+    }
 
-        Date date = new Date();
-        idCard.setValidFrom(date);
-        //date = date.getDatumHeute() + wie lange haltbar
-        idCard.setValidUntil(date);
+    public void lockIDCard(IDCardVisitor idCard){
+        cardManagement.lockIDCard(idCard);
+    }
 
-        String newPassword = touchpadReader.getTouchpad().setInput(password);
-        String encryptedPW = AES.encrypt(newPassword, "secret");
-        idCard.setChip(new Chip(encryptedPW, idCard));
-
-        visitor.setIdCard(idCard);
+    public void clearIDCard(IDCardVisitor idCard){
+        cardManagement.clearIDCard(idCard);
     }
 }
 
