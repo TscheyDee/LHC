@@ -20,7 +20,7 @@ public enum CardManagement implements ICardManagement {
         idCard.setValidUntil(nextYear);
 
         String password = "helloLHC2020";
-        String encryptedPW = AES.encrypt(password, "secret");
+        String encryptedPW = encryptPassword(password);
 
         Chip chip1 = new Chip(encryptedPW, idCard);
         Chip chip2 = new Chip("", idCard);
