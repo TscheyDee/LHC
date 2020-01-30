@@ -1,23 +1,12 @@
-import java.math.BigInteger;
-import java.security.MessageDigest;
-
 public class MD5Hash extends CryptogrpahyManagement {
 
     @Override
     public void encrypt(){
 
-        String plaintext = "your text here";
-        MessageDigest m = MessageDigest.getInstance("MD5");
-        m.reset();
-        m.update(plaintext.getBytes());
-        byte[] digest = m.digest();
-        BigInteger bigInt = new BigInteger(1,digest);
-        String hashtext = bigInt.toString(16);
+    }
 
-        // Now we need to zero pad it if you actually want the full 32 chars.
+    @Override
+    public void decrypt(){
 
-        while(hashtext.length() < 32 ){
-            hashtext = "0"+hashtext;
-        }
     }
 }

@@ -11,19 +11,21 @@ public class Reader implements IReader{
         this.iReaderTechnology = iReaderTechnology;
     }
 
-    public boolean insertCard(IDCardVisitor idCard, IReaderTechnology iReaderTechnology){
+    public boolean insertCard(IDCardVisitor idCard, IReaderTechnology iReaderTechnology,
+                              String password){
         this.idCard = idCard;
         this.iReaderTechnology = iReaderTechnology;
-        boolean passwordVerification = cardManagement.verifyIDCard(idCard);
+        boolean passwordVerification = cardManagement.verifyIDCard(idCard, password);
 
         return (passwordVerification == true);
     }
 
-    public boolean insertCard(IDCardEmployee idCard, IReaderTechnology iReaderTechnology){
+    public boolean insertCard(IDCardEmployee idCard, IReaderTechnology iReaderTechnology,
+                              String password, int[][] iris){
         this.idCard = idCard;
         this.iReaderTechnology = iReaderTechnology;
-        boolean passwordVerification = cardManagement.verifyIDCard(idCard);
-        boolean irisVerification = cardManagement.verifyIris(idCard);
+        boolean passwordVerification = cardManagement.verifyIDCard(idCard, password);
+        boolean irisVerification = cardManagement.verifyIris(idCard, iris);
 
         return (passwordVerification == true && irisVerification == true);
     }
@@ -32,7 +34,7 @@ public class Reader implements IReader{
         if (idCard != null) {
             idCard = null;
         } else {
-            throw new RuntimeException("Leg Karte ein du Opfer");
+            System.out.println("Card can't be removed - no card inside.");
         }
     }
 
@@ -46,5 +48,17 @@ public class Reader implements IReader{
 
     public void setScanner(IrisScanner scanner) {
         this.scanner = scanner;
+    }
+
+    public IReaderTechnology getiReaderTechnology() {
+        return iReaderTechnology;
+    }
+
+    public void setiReaderTechnology(IReaderTechnology iReaderTechnology) {
+        this.iReaderTechnology = iReaderTechnology;
+    }
+
+    public CardManagement getCardManagement() {
+        return cardManagement;
     }
 }

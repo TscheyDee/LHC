@@ -7,10 +7,6 @@ public class ReaderTouchpad extends Reader {
         this.touchpad = touchpad;
     }
 
-    public String enterPIN() {
-        return touchpad.getInput();
-    }
-
     public Touchpad getTouchpad() {
         return touchpad;
     }
