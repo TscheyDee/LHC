@@ -3,7 +3,6 @@ import java.util.HashMap;
 public enum EmployeeManagement implements IEmployeeManagement{
     instance;
 
-    private IrisScanner reader;
     private HashMap<Integer, Employee> employeeMap;
 
     public void createEmployee(String name, String type) {

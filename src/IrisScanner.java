@@ -8,6 +8,10 @@ public class IrisScanner implements IScanner{
     }
 
     public void scan(){
+
+    }
+
+    public void scanIris(int[][] currentEmployeeIris) {
         this.currentEmployeeIris = currentEmployeeIris;
     }
 

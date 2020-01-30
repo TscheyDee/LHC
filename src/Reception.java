@@ -8,7 +8,6 @@ public enum Reception {
 
     private Stack<IDCardVisitor> blankIDCards;
     private Employee employee;
-    private ReaderTouchpad touchpadReader;
     private CardManagement cardManagement;
 
 
@@ -19,7 +18,7 @@ public enum Reception {
 
     public void createNewIDCard(Visitor visitor, String password) {
         IDCardVisitor idCard = blankIDCards.pop();
-        cardManagement.createIDCardVisitor(visitor, idCard, password);
+        cardManagement.createIDCard(visitor, idCard, password);
     }
 
     public void lockIDCard(IDCardVisitor idCard){

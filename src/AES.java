@@ -8,7 +8,6 @@ import javax.crypto.spec.SecretKeySpec;
 public class AES extends CryptogrpahyManagement {
 
     private static SecretKeySpec secretKey;
-    private Keystore key = Keystore.KEY_1;
 
     public AES() {
     }
@@ -26,7 +25,7 @@ public class AES extends CryptogrpahyManagement {
 
     }
 
-    public static String encrypt(String string, String secret) {
+    public String encrypt(String string, String secret) {
         try {
             setKey(secret);
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
@@ -38,7 +37,7 @@ public class AES extends CryptogrpahyManagement {
         }
     }
 
-    public static String decrypt(String string, String secret) {
+    public String decrypt(String string, String secret) {
         try {
             setKey(secret);
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
@@ -48,15 +47,5 @@ public class AES extends CryptogrpahyManagement {
             System.out.println("error: " + var3.getMessage());
             return null;
         }
-    }
-
-    public static void main(String... args) {
-        String secretKey = "x7z99kvb6lU";
-        String originalString = "***8103***P***59771273***";
-        String encryptedString = encrypt(originalString, "x7z99kvb6lU");
-        String decryptedString = decrypt(encryptedString, "x7z99kvb6lU");
-        System.out.println(originalString);
-        System.out.println(encryptedString);
-        System.out.println(decryptedString);
     }
 }

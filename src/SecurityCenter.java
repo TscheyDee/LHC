@@ -7,7 +7,6 @@ public enum SecurityCenter {
 
     private Stack<IDCardEmployee> blankIDCards;
     private SecurityOfficer securityOfficer;
-    private ReaderTouchpad touchpadReader;
     private CardManagement cardManagement;
 
     public void addBlankIDCard() {
@@ -15,9 +14,9 @@ public enum SecurityCenter {
         blankIDCards.add(idCard);
     }
 
-    public void createNewIDCard(Employee employee) {
+    public void createNewIDCard(Employee employee, int[][] iris) {
         IDCard idCard = blankIDCards.pop();
-        cardManagement.createIDCardEmployee(employee, idCard);
+        cardManagement.createIDCard(employee, iris, idCard);
     }
 
     public void lockIDCard(IDCardEmployee idCard){
