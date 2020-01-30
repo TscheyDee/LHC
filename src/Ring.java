@@ -1,4 +1,6 @@
-public class Ring {
+import com.google.common.eventbus.Subscribe;
+
+public class Ring extends Subscriber {
 
     private boolean isActvated;
     private Experiment currentExperiment;
@@ -37,6 +39,16 @@ public class Ring {
     }
 
     public void shutdown(){
+
+    }
+
+    @Subscribe
+    public void receive(RunExperimentFull experimentFull) {
+
+    }
+
+    @Subscribe
+    public void receive(RunExperimentPartial experimentPartial) {
 
     }
 }
