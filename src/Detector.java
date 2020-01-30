@@ -1,10 +1,12 @@
+import com.google.common.eventbus.Subscribe;
+
 import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.LinkedList;
 
-public class Detector implements IDetector {
+public class Detector extends Subscriber implements IDetector {
 
     private static String higgsBosonStructure = "higgs";
     private boolean isActivated;
@@ -106,5 +108,10 @@ public class Detector implements IDetector {
 
     public void setReader(Reader reader) {
         this.reader = reader;
+    }
+
+    @Subscribe
+    public void receive(Analyse analyse) {
+
     }
 }
