@@ -10,7 +10,7 @@ public enum CardManagement implements ICardManagement {
     private CryptogrpahyManagement cryptogrpahyManagement;
 
 
-    public void createIDCard(Employee employee, int[][] iris, IDCard idCard) {
+    public void createIDCard(Employee employee, int[][] iris, int[][] fingerprint, IDCard idCard) {
         Calendar cal = Calendar.getInstance();
         Date today = cal.getTime();
         cal.add(Calendar.YEAR, 1); // to get previous year add -1
@@ -23,10 +23,14 @@ public enum CardManagement implements ICardManagement {
         String encryptedPW = encryptPassword(password);
 
         Chip chip1 = new Chip(encryptedPW, idCard);
-        Chip chip2 = new Chip("", idCard);
 
-        touchpadReader.getScanner().scanIris(iris);
-        int[][] newIris = touchpadReader.getScanner().getIris();
+        touchpadReader.getFingerprintScanner().scan(fingerprint);
+        int[][]newFingerprint = touchpadReader.getFingerprintScanner().getFingerprint();
+
+        FingerprintChip chip2 = new FingerprintChip(newFingerprint, idCard);
+
+        touchpadReader.getIrisScanner().scan(iris);
+        int[][] newIris = touchpadReader.getIrisScanner().getIris();
 
         idCard = new IDCardEmployee(employee.getName(), new Date(),
                 new Date(), newIris, chip1, chip2);
@@ -64,7 +68,7 @@ public enum CardManagement implements ICardManagement {
     }
 
     public void changePassword(IDCard idCard, String oldPassword, String newPassword){
-        if(verifyIDCard(idCard, oldPassword)){
+        if(verifyPassword(idCard, oldPassword)){
             touchpadReader.getTouchpad().setInput(newPassword);
             idCard.getChip().setPassword( touchpadReader.getTouchpad().getInput());
         }
@@ -73,18 +77,27 @@ public enum CardManagement implements ICardManagement {
         }
     }
 
-    public boolean verifyIDCard(IDCard idCard, String enteredPassword) {
+    public boolean verifyPassword(IDCard idCard, String enteredPassword) {
         touchpadReader.getTouchpad().setInput(enteredPassword);
         String enteredPIN = touchpadReader.getTouchpad().getInput();
         String password = idCard.getChip().getPassword();
-        password = encryptPassword(password);
+        password = decryptPassword(password);
 
         return (enteredPIN == password);
     }
 
+    public boolean verifyFingerprint(IDCardEmployee idCard, int[][] scannedFinerprint) {
+        touchpadReader.getFingerprintScanner().scan(scannedFinerprint);
+        int[][] fingerPrint = touchpadReader.getFingerprintScanner().getFingerprint();
+        int[][] cardFingerprint = idCard.getFingerprintChip().getFingerprint();
+        //cardFingerprint = decryptPassword( ? );
+
+        return (scannedFinerprint == cardFingerprint);
+    }
+
     public boolean verifyIris(IDCardEmployee idCard, int[][] scannedIris) {
-        touchpadReader.getScanner().scanIris(scannedIris);
-        int[][] iris = touchpadReader.getScanner().getIris();
+        touchpadReader.getIrisScanner().scan(scannedIris);
+        int[][] iris = touchpadReader.getIrisScanner().getIris();
         int[][] cardIris = idCard.getIrisStructure();
 
         return (iris == cardIris);
