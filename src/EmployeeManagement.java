@@ -5,22 +5,35 @@ public enum EmployeeManagement implements IEmployeeManagement{
 
     private HashMap<Integer, Employee> employeeMap;
 
-    public void createEmployee(String name, String type) {
+    public void createEmployee(String name, EmployeeType type) {
 
         switch (type) {
-            case "researcher":
+            case SECURITY_OFFICER:
                 Researcher researcher;
                 break;
 
-            case "security":
+            case RESEARCHER:
                 SecurityOfficer securityOfficer;
                 break;
 
-            case "scientific":
+            case SCIENTIFIC_ASSISTANT:
                 ScientificAssistant scientificAssistant;
                 break;
 
+            case HR_ASSISTANT:
+                HRAssistant hrAssistant;
+                break;
+
+            case HR_CONSULTANT:
+                HRConsultant hrConsultant;
+                break;
+
+            case HR_HOD:
+                HRHoD hrHoD;
+                break;
+
             default:
+                System.out.println("---Invalid employee type parameter!");
         }
     }
 

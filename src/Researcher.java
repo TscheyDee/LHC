@@ -3,8 +3,10 @@ public class Researcher extends Employee {
     private boolean isSenior;
     private IRODetector detector;
 
-    public Researcher(int id, String name, int iris[][], boolean isManager, boolean isMentor, boolean hasBudgetResponsibility, boolean isSenior){
-        super(id, name, iris, isManager, isMentor, hasBudgetResponsibility);
+    public Researcher(String name, int iris[][], boolean isManager,
+                      boolean isMentor, boolean hasBudgetResponsibility,
+                      IDCardEmployee idCardEmployee){
+        super(name, iris, isManager, isMentor, hasBudgetResponsibility, idCardEmployee);
         this.isSenior = isSenior;
     }
 

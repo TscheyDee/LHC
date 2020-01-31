@@ -2,13 +2,15 @@ public class Person {
 
     protected int id;
     protected String name;
-    protected int iris[][] = new int[10][10];
 
 
-    public Person(int id, String name, int iris[][]){
-        this.id = id;
+    public Person(String name){
+        this.id =  getNewId();
         this.name = name;
-        this.iris = iris;
+    }
+
+    public int getNewId() {
+        return (int)(Math.random() * (99999-10000) + 10000);
     }
 
     public int getId() {
@@ -27,11 +29,4 @@ public class Person {
         this.name = name;
     }
 
-    public int[][] getIris() {
-        return iris;
-    }
-
-    public void setIris(int[][] iris) {
-        this.iris = iris;
-    }
 }
