@@ -3,13 +3,18 @@ public abstract class Employee extends Person {
     protected boolean isManager;
     protected boolean isMentor;
     protected boolean hasBudgetResponsibility;
+    protected IDCardEmployee idCardEmployee;
 
 
-    public Employee(int id, String name, int iris[][], boolean isManager, boolean isMentor, boolean hasBudgetResponsibility){
+    public Employee(int id, String name, int iris[][],
+                    boolean isManager, boolean isMentor,
+                    boolean hasBudgetResponsibility,
+                    IDCardEmployee idCardEmployee){
         super(id, name, iris);
         this.isManager = isManager;
         this.isMentor = isMentor;
         this.hasBudgetResponsibility = hasBudgetResponsibility;
+        this.idCardEmployee = idCardEmployee;
     }
 
     public boolean isManager() {
@@ -34,5 +39,13 @@ public abstract class Employee extends Person {
 
     public void setHasBudgetResponsibility(boolean hasBudgetResponsibility) {
         this.hasBudgetResponsibility = hasBudgetResponsibility;
+    }
+
+    public IDCardEmployee getIdCardEmployee() {
+        return idCardEmployee;
+    }
+
+    public void setIdCardEmployee(IDCardEmployee idCardEmployee) {
+        this.idCardEmployee = idCardEmployee;
     }
 }

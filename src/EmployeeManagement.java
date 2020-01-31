@@ -25,7 +25,7 @@ public enum EmployeeManagement implements IEmployeeManagement{
     }
 
     public void assignIDCard(IDCardEmployee idCard, Employee employee) {
-        employee.setIdCard(idCard);
+        employee.setIdCardEmployee(idCard);
     }
 
     public HashMap<Integer, Employee> getEmployeeMap() {

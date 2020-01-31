@@ -3,7 +3,6 @@ public class Person {
     protected int id;
     protected String name;
     protected int iris[][] = new int[10][10];
-    protected IDCard idCard;
 
 
     public Person(int id, String name, int iris[][]){
@@ -34,13 +33,5 @@ public class Person {
 
     public void setIris(int[][] iris) {
         this.iris = iris;
-    }
-
-    public IDCard getIdCard() {
-        return idCard;
-    }
-
-    public void setIdCard(IDCard idCard) {
-        this.idCard = idCard;
     }
 }

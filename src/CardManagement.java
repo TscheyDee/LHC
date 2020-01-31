@@ -16,9 +16,6 @@ public enum CardManagement implements ICardManagement {
         cal.add(Calendar.YEAR, 1); // to get previous year add -1
         Date nextYear = cal.getTime();
 
-        idCard.setValidFrom(today);
-        idCard.setValidUntil(nextYear);
-
         String password = "helloLHC2020";
         String encryptedPW = encryptPassword(password);
 
@@ -32,10 +29,11 @@ public enum CardManagement implements ICardManagement {
         touchpadReader.getIrisScanner().scan(iris);
         int[][] newIris = touchpadReader.getIrisScanner().getIris();
 
-        idCard = new IDCardEmployee(employee.getName(), new Date(),
-                new Date(), newIris, chip1, chip2);
+        IDCardEmployee idCardEmployee = new IDCardEmployee(
+                employee.getName(), today,
+                nextYear, newIris, chip1, chip2);
 
-        employee.setIdCard(idCard);
+        employee.setIdCardEmployee(idCardEmployee);
     }
 
     public void createIDCard(Visitor visitor, IDCard idCard, String password){
@@ -46,9 +44,6 @@ public enum CardManagement implements ICardManagement {
         cal.add(Calendar.MONTH, 1);
         Date nextYear = cal.getTime();
 
-        idCard.setValidFrom(today);
-        idCard.setValidUntil(nextYear);
-
         touchpadReader.getTouchpad().setInput(password);
         String newPassword = touchpadReader.getTouchpad().getInput();
 
@@ -56,7 +51,9 @@ public enum CardManagement implements ICardManagement {
         String encryptedPW = encryptPassword(newPassword);
         idCard.setChip(new Chip(encryptedPW, idCard));
 
-        visitor.setIdCard(idCard);
+        IDCardVisitor idCardVisitor = new IDCardVisitor(
+                visitor.getName(), today, nextYear, new Chip(encryptedPW, idCard));
+        visitor.setIdCardVisitor(idCardVisitor);
     }
 
     public String encryptPassword(String password){
@@ -109,5 +106,9 @@ public enum CardManagement implements ICardManagement {
 
     public void clearIDCard(IDCard idCard){
         idCard.setLocked(false);
+    }
+
+    public boolean validDate(){
+        return true;
     }
 }
