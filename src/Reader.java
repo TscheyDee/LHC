@@ -33,6 +33,28 @@ public class Reader implements IReader{
         return (passwordVerification == true && irisVerification == true);
     }
 
+
+    /*
+
+    public IDCard insertCard(IDCardVisitor idCard,
+    IReaderTechnology iReaderTechnology){
+
+        iReaderTechnology.detectIDCard(idCard);
+        return iReaderTechnology.getIDCard();
+    }
+
+    public boolean verifyIDCard(IDCardVisitor idCard,
+    String password, int[][] iris){
+
+        IDCardVisitor newDdCard = insertCard(idCard);
+
+        boolean passwordVerification = cardManagement.verifyPassword(idCard, password);
+        boolean irisVerification = cardManagement.verifyIris(idCard, iris);
+
+        return (passwordVerification == true && irisVerification == true);
+    }
+    */
+
     public void removeIDCard(){
         if (idCard != null) {
             idCard = null;

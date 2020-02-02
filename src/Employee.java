@@ -1,17 +1,15 @@
 public abstract class Employee extends Person {
 
-    protected int iris[][] = new int[10][10];
     protected boolean isManager;
     protected boolean isMentor;
     protected boolean hasBudgetResponsibility;
     protected IDCardEmployee idCardEmployee;
 
 
-    public Employee(String name, int iris[][],
-                    boolean isManager, boolean isMentor,
+    public Employee(String name, int iris[][], boolean isManager, boolean isMentor,
                     boolean hasBudgetResponsibility,
                     IDCardEmployee idCardEmployee){
-        super(name);
+        super(name, iris);
         this.iris = iris;
         this.isManager = isManager;
         this.isMentor = isMentor;

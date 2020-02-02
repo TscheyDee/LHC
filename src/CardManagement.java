@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,7 +11,7 @@ public enum CardManagement implements ICardManagement {
     private CryptogrpahyManagement cryptogrpahyManagement;
 
 
-    public void createIDCard(Employee employee, int[][] iris, int[][] fingerprint, IDCard idCard) {
+    public void createIDCard(Employee employee, int[][] iris, String fingerprint, IDCard idCard) {
         Calendar cal = Calendar.getInstance();
         Date today = cal.getTime();
         cal.add(Calendar.YEAR, 1); // to get previous year add -1
@@ -18,13 +19,10 @@ public enum CardManagement implements ICardManagement {
 
         String password = "helloLHC2020";
         String encryptedPW = encryptPassword(password);
-
         Chip chip1 = new Chip(encryptedPW, idCard);
 
-        touchpadReader.getFingerprintScanner().scan(fingerprint);
-        int[][]newFingerprint = touchpadReader.getFingerprintScanner().getFingerprint();
-
-        FingerprintChip chip2 = new FingerprintChip(newFingerprint, idCard);
+        String newFingerprint = MD5CryptoUtilities.instance.generate(employee.getName());
+        Chip chip2 = new Chip(newFingerprint, idCard);
 
         touchpadReader.getIrisScanner().scan(iris);
         int[][] newIris = touchpadReader.getIrisScanner().getIris();
@@ -41,7 +39,7 @@ public enum CardManagement implements ICardManagement {
 
         Calendar cal = Calendar.getInstance();
         Date today = cal.getTime();
-        cal.add(Calendar.MONTH, 1);
+        cal.add(Calendar.WEEK_OF_YEAR, 1);
         Date nextYear = cal.getTime();
 
         touchpadReader.getTouchpad().setInput(password);
@@ -83,11 +81,9 @@ public enum CardManagement implements ICardManagement {
         return (enteredPIN == password);
     }
 
-    public boolean verifyFingerprint(IDCardEmployee idCard, int[][] scannedFinerprint) {
-        touchpadReader.getFingerprintScanner().scan(scannedFinerprint);
-        int[][] fingerPrint = touchpadReader.getFingerprintScanner().getFingerprint();
-        int[][] cardFingerprint = idCard.getFingerprintChip().getFingerprint();
-        //cardFingerprint = decryptPassword( ? );
+    public boolean verifyFingerprint(IDCardEmployee idCard, String scannedFinerprint) {
+        String cardFingerprint = idCard.getFingerprintChip().getPassword();
+        scannedFinerprint = MD5CryptoUtilities.instance.generate(scannedFinerprint);
 
         return (scannedFinerprint == cardFingerprint);
     }
@@ -108,7 +104,26 @@ public enum CardManagement implements ICardManagement {
         idCard.setLocked(false);
     }
 
-    public boolean validDate(){
-        return true;
+    public boolean validDate(IDCard idCard){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date today = new Date();
+        simpleDateFormat.format(today);
+
+        Date until = idCard.getValidUntil();
+        simpleDateFormat.format(until);
+
+        if(today.compareTo(until) > 0) {
+            System.out.println("Date 1 occurs after Date 2");
+            return false;
+
+        } else if(today.compareTo(until) < 0) {
+            System.out.println("Date 1 occurs before Date 2");
+            return true;
+
+        } else { //if(today.compareTo(until) == 0) {
+            System.out.println("Both dates are equal");
+            return false;
+        }
     }
 }

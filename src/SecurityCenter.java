@@ -1,5 +1,3 @@
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Stack;
 
 public enum SecurityCenter {
@@ -14,9 +12,9 @@ public enum SecurityCenter {
         blankIDCards.add(idCard);
     }
 
-    public void createNewIDCard(Employee employee, int[][] iris) {
-        IDCard idCard = blankIDCards.pop();
-        cardManagement.createIDCard(employee, iris, idCard);
+    public void createNewIDCard(Employee employee, int[][] iris, String fingerprint) {
+        IDCardEmployee idCard = blankIDCards.pop();
+        cardManagement.createIDCard(employee, iris, fingerprint, idCard);
     }
 
     public void lockIDCard(IDCardEmployee idCard){

@@ -1,7 +1,5 @@
 import com.google.common.eventbus.EventBus;
 
-import java.util.Date;
-
 public enum ControlCenter {
     instance;
 
@@ -38,13 +36,13 @@ public enum ControlCenter {
     }
 
     public boolean verifyEmployee(Employee employee, String pw,
-                               int[][] iris, int[][] fingerprint){
+                               int[][] iris, String fingerprint){
         IDCardEmployee idCard = employee.getIdCardEmployee();
 
-        if(cardManagement.validDate() && !idCard.isLocked()){
+        if(cardManagement.validDate(employee.getIdCardEmployee()) && !idCard.isLocked()){
             boolean b1 = cardManagement.verifyPassword(idCard, pw);
-            boolean b3 = cardManagement.verifyFingerprint(idCard, iris);
-            boolean b2 = cardManagement.verifyIris(idCard, fingerprint);
+            boolean b3 = cardManagement.verifyFingerprint(idCard, fingerprint);
+            boolean b2 = cardManagement.verifyIris(idCard, iris);
 
             return (b1 && b2 && b3);
         }

@@ -25,7 +25,7 @@ public abstract class IDCard {
 
     public IDCard() {                    //blank id card
         this.id = getNewId();
-        this.name = null;
+        this.name = "";
         this.validFrom = null;
         this.validUntil = null;
         this.permissionList = null;

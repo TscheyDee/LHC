@@ -2,11 +2,13 @@ public class Person {
 
     protected int id;
     protected String name;
+    protected int iris[][] = new int[10][10];
 
 
-    public Person(String name){
+    public Person(String name, int iris[][]){
         this.id =  getNewId();
         this.name = name;
+        this.iris = iris;
     }
 
     public int getNewId() {
@@ -29,4 +31,11 @@ public class Person {
         this.name = name;
     }
 
+    public int[][] getIris() {
+        return iris;
+    }
+
+    public void setIris(int[][] iris) {
+        this.iris = iris;
+    }
 }

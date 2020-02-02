@@ -4,36 +4,48 @@ public enum EmployeeManagement implements IEmployeeManagement{
     instance;
 
     private HashMap<Integer, Employee> employeeMap;
+    private CardManagement cardManagement;
 
-    public void createEmployee(String name, EmployeeType type) {
+    public Employee createEmployee(String name, EmployeeType type) {
+
+        Employee employee;
+        int[][] iris = new int[10][10];
+        int[][] fingerprint = new int[10][10];
 
         switch (type) {
             case SECURITY_OFFICER:
-                Researcher researcher;
-                break;
+                employee = new Researcher(name, iris, false,
+                        false, false, null);
+                return employee;
 
             case RESEARCHER:
-                SecurityOfficer securityOfficer;
-                break;
+                employee = new SecurityOfficer(name, iris, false,
+                        false, false, null);
+                return employee;
 
             case SCIENTIFIC_ASSISTANT:
-                ScientificAssistant scientificAssistant;
-                break;
+                employee = new ScientificAssistant(name, iris, false,
+                        false, false, null);
+                return employee;
 
             case HR_ASSISTANT:
-                HRAssistant hrAssistant;
-                break;
+                employee = new HRAssistant(name, iris, false,
+                        false, false, null);
+                return employee;
 
             case HR_CONSULTANT:
-                HRConsultant hrConsultant;
-                break;
+                employee = new HRConsultant(name, iris, false,
+                        false, false, null);
+                return employee;
 
             case HR_HOD:
-                HRHoD hrHoD;
-                break;
+                employee = new HRHoD(name, iris, false,
+                        false, false, null);
+                return employee;
 
             default:
                 System.out.println("---Invalid employee type parameter!");
+                return null;
         }
     }
 

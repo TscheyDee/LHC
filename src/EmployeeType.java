@@ -1,5 +1,4 @@
 public enum EmployeeType {
-
     SECURITY_OFFICER,
     RESEARCHER,
     SCIENTIFIC_ASSISTANT,

@@ -6,11 +6,13 @@ public class RFID implements IReaderTechnology {
         this.idCard = idCard;
     }
 
-    public IDCard getIdCard() {
-        return idCard;
+    public void detectIDCard(IDCard idCard){
+        if (idCard != null){
+            this.idCard = idCard;
+        }
     }
 
-    public void setIdCard(IDCard idCard) {
-        this.idCard = idCard;
+    public IDCard getIDCard() {
+        return idCard;
     }
 }
