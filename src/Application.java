@@ -5,6 +5,15 @@ public class Application {
     }
 
     public static void UseCase1(){
+        SecurityCenter.instance.addBlankIDCard();
+
+        IrisScanner scanner = new IrisScanner();
+        scanner.scan();
+
+
+        SecurityCenter.instance.createNewIDCard();
+
+        Reception.instance.addBlankIDCard();
 
     }
 

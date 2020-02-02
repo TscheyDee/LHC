@@ -20,7 +20,7 @@ public class Detector extends Subscriber implements IDetector {
         this.reader = reader;
     }
 
-    public void search(Experiment experiment) {
+    public int search(Experiment experiment) {
         String searchString = experiment.toString();
 
         String jarName = Configuration.searchAlgorithm.getName() + ".jar";
@@ -85,8 +85,10 @@ public class Detector extends Subscriber implements IDetector {
 
             int result = (int) method.invoke(port, searchString, higgsBosonStructure);
             System.out.println("result   : " + result);
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
+            return -1;
         }
     }
 
@@ -112,6 +114,8 @@ public class Detector extends Subscriber implements IDetector {
 
     @Subscribe
     public void receive(Analyse analyse) {
-
+        for (Experiment experiment : experimentList) {
+            experiment.
+        }
     }
 }

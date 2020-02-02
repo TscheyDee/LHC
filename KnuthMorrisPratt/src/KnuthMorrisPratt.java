@@ -37,7 +37,7 @@ public class KnuthMorrisPratt {
     	port = new Port();
     }
 
-    public int _search(String text, String pattern) {
+    private int _search(String text, String pattern) {
         int n = text.length();
         int m = pattern.length();
 
