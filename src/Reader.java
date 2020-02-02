@@ -1,12 +1,15 @@
 public class Reader implements IReader{
 
-    private IrisScanner scanner;
     private IDCard idCard;
+
+    private IrisScanner irisScanner;
+    private FingerprintScanner fingerprintScanner;
+
     private IReaderTechnology iReaderTechnology;
     private CardManagement cardManagement;
 
-    public Reader(IrisScanner scanner, IDCard idCard, IReaderTechnology iReaderTechnology){
-        this.scanner = scanner;
+    public Reader(IrisScanner irisScanner, IDCard idCard, IReaderTechnology iReaderTechnology){
+        this.irisScanner = irisScanner;
         this.idCard = idCard;
         this.iReaderTechnology = iReaderTechnology;
     }
@@ -15,7 +18,7 @@ public class Reader implements IReader{
                               String password){
         this.idCard = idCard;
         this.iReaderTechnology = iReaderTechnology;
-        boolean passwordVerification = cardManagement.verifyIDCard(idCard, password);
+        boolean passwordVerification = cardManagement.verifyPassword(idCard, password);
 
         return (passwordVerification == true);
     }
@@ -24,7 +27,7 @@ public class Reader implements IReader{
                               String password, int[][] iris){
         this.idCard = idCard;
         this.iReaderTechnology = iReaderTechnology;
-        boolean passwordVerification = cardManagement.verifyIDCard(idCard, password);
+        boolean passwordVerification = cardManagement.verifyPassword(idCard, password);
         boolean irisVerification = cardManagement.verifyIris(idCard, iris);
 
         return (passwordVerification == true && irisVerification == true);
@@ -39,15 +42,23 @@ public class Reader implements IReader{
     }
 
     public int[][] scanIris() {
-        return scanner.getIris();
+        return irisScanner.getIris();
     }
 
-    public IrisScanner getScanner() {
-        return scanner;
+    public IrisScanner getIrisScanner() {
+        return irisScanner;
     }
 
-    public void setScanner(IrisScanner scanner) {
-        this.scanner = scanner;
+    public void setIrisScanner(IrisScanner scanner) {
+        this.irisScanner = scanner;
+    }
+
+    public FingerprintScanner getFingerprintScanner() {
+        return fingerprintScanner;
+    }
+
+    public void setFingerprintScanner(FingerprintScanner fingerprintScanner) {
+        this.fingerprintScanner = fingerprintScanner;
     }
 
     public IReaderTechnology getiReaderTechnology() {

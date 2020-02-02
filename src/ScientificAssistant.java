@@ -5,8 +5,10 @@ public class ScientificAssistant extends Employee {
     private Date periodFrom;
     private Date periodUntil;
 
-    public ScientificAssistant(int id, String name, int iris[][], boolean isManager, boolean isMentor, boolean hasBudgetResponsibility, Date periodFrom, Date periodUntil){
-        super(id, name, iris, isManager, isMentor, hasBudgetResponsibility);
+    public ScientificAssistant(String name, int iris[][], boolean isManager,
+                               boolean isMentor, boolean hasBudgetResponsibility,
+                               IDCardEmployee idCardEmployee){
+        super(name, iris, isManager, isMentor, hasBudgetResponsibility, idCardEmployee);
         this.periodFrom = periodFrom;
         this.periodUntil = periodUntil;
     }

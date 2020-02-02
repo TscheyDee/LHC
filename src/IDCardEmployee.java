@@ -3,11 +3,11 @@ import java.util.Date;
 
 public class IDCardEmployee extends IDCard {
 
-    private Chip secondChip;
+    private FingerprintChip secondChip;
     private int[][] irisStructure;
 
     public IDCardEmployee(String name, Date validFrom, Date validUntil,
-                          int[][] irisStructure, Chip chip, Chip secondChip){
+                          int[][] irisStructure, Chip chip, FingerprintChip secondChip){
         super(name, validFrom, validUntil, chip);
         getPermissionList().add(Permission.Visitor);
         this.irisStructure = irisStructure;
@@ -18,11 +18,11 @@ public class IDCardEmployee extends IDCard {
         super();
     }
 
-    public Chip getSecondChipChip() {
+    public FingerprintChip getFingerprintChip() {
         return secondChip;
     }
 
-    public void setSecondChip(Chip secondChip) {
+    public void setFingerprintChipChip(FingerprintChip secondChip) {
         this.secondChip = secondChip;
     }
 

@@ -1,6 +1,8 @@
 public class HRConsultant extends Employee {
 
-    public HRConsultant(int id, String name, int iris[][], boolean isManager, boolean isMentor, boolean hasBudgetResponsibility){
-        super(id, name, iris, isManager, isMentor, hasBudgetResponsibility);
+    public HRConsultant(String name, int iris[][], boolean isManager,
+                        boolean isMentor, boolean hasBudgetResponsibility,
+                        IDCardEmployee idCardEmployee){
+        super(name, iris, isManager, isMentor, hasBudgetResponsibility, idCardEmployee);
     }
 }
