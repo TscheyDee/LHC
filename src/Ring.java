@@ -10,12 +10,18 @@ public class Ring extends Subscriber {
     private Detector detector;
     private ProtonTrap[] protonTrap = new ProtonTrap[2];
 
-    public void activate(){
+    public Ring() {
+        this.energy = 0;
+    }
 
+    public void activate(){
+        for (int i = 0; i < magnet.length; i++) {
+            magnet[i] = new Magnet(true, MagnetDirection.N, energy, this);
+        }
     }
 
     public void activate(int initialEnergy){
-
+        this.energy = initialEnergy;
     }
 
     public void activateMagnetField(){
@@ -27,15 +33,15 @@ public class Ring extends Subscriber {
     }
 
     public void increaseEnergy(int delta){
-
+        this.energy += delta;
     }
 
     public void collide(Proton proton01, Proton proton02){
-
+        currentExperiment.getBlocks()
     }
 
     public int decreaseEnergy(){
-        return energy--;
+        return energy-=5;
     }
 
     public void shutdown(){
@@ -49,6 +55,6 @@ public class Ring extends Subscriber {
 
     @Subscribe
     public void receive(RunExperimentPartial experimentPartial) {
-
+        // Only the first n-th Protons collide!
     }
 }
