@@ -15,7 +15,7 @@ public class ProtonTrap {
         this.protons = protons;
     }
 
-    public void loadData(String dataFilePath) throws IOException {
+    public void loadData(String dataFilePath, boolean gerade) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("proton.txt"));
         StringBuilder builder = new StringBuilder();
 

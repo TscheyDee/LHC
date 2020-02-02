@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class Experiment {
@@ -5,7 +6,7 @@ public class Experiment {
     private UUID uuid;
     private String dateTimeStamp;
     private boolean isHiggsBosonFound;
-    private Block[] blocks;
+    private ArrayList<Block> blocks;
 
     public Experiment(UUID uuid, String dateTimeStamp, boolean isHiggsBosonFound){
         this.uuid = uuid;
@@ -14,8 +15,16 @@ public class Experiment {
     }
 
     public void initExperiment() {
-        blocks = new Block[200000];
+        blocks = new ArrayList<>();
 
+    }
+
+    public ArrayList<Block> getBlocks() {
+        return blocks;
+    }
+
+    public void setBlocks(ArrayList<Block> blocks) {
+        this.blocks = blocks;
     }
 
     public UUID getUuid() {
