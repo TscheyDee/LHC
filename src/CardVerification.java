@@ -25,7 +25,6 @@ public enum CardVerification {
         }
     }
 
-
     public boolean verifyEmployeeFull(Employee employee, String pw){
         IDCardEmployee idCard = employee.getIdCardEmployee();
 

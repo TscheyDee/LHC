@@ -37,7 +37,7 @@ public class Ring extends Subscriber {
     }
 
     public void collide(Proton proton01, Proton proton02){
-        currentExperiment.getBlocks()
+        currentExperiment.getBlocks();
     }
 
     public int decreaseEnergy(){

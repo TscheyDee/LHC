@@ -29,7 +29,6 @@ public class Detector extends Subscriber implements IDetector {
         Object instance = null;
         Object port = null;
 
-
         // Hier muss nochgeändert werden: ALle auf die neue Architektur anwenden, Hierfür den Enum verwenden: Enum.name + ".jar"
         /*String fileSeparator = System.getProperty("file.separator");
         String userDirectory = System.getProperty("user.dir");
@@ -48,7 +47,6 @@ public class Detector extends Subscriber implements IDetector {
         System.out.println("nameOfClass                : " + nameOfClass);
         System.out.println();
 
-
         System.out.println("--- loadClazzFromJavaArchive");
         try {
             URL[] urls = {new File(subFolderPathOfJavaArchive).toURI().toURL()};
@@ -59,7 +57,6 @@ public class Detector extends Subscriber implements IDetector {
             e.printStackTrace();
         }
 
-
         System.out.println("--- provideInstanceOfClass");
         try {
             instance = clazz.getMethod("getInstance").invoke(null);
@@ -68,7 +65,6 @@ public class Detector extends Subscriber implements IDetector {
             System.out.println(e.getMessage());
         }
 
-
         System.out.println("--- provideComponentPort");
         try {
             port = clazz.getDeclaredField("port").get(instance);
@@ -76,7 +72,6 @@ public class Detector extends Subscriber implements IDetector {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         System.out.println("--- executeSearchMethodUsingPort");
         try {
@@ -92,15 +87,13 @@ public class Detector extends Subscriber implements IDetector {
         }
     }
 
-    public int search(String str, String pattern) {
-        String searchString = str;
+    public int search(String searchString, String pattern) {
 
         String jarName = Configuration.searchAlgorithm.getName() + ".jar";
 
         Class<?> clazz = null;
         Object instance = null;
         Object port = null;
-
 
         // Hier muss nochgeändert werden: ALle auf die neue Architektur anwenden, Hierfür den Enum verwenden: Enum.name + ".jar"
         /*String fileSeparator = System.getProperty("file.separator");
