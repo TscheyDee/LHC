@@ -7,11 +7,10 @@ public class IDCardEmployee extends IDCard {
     private int[][] irisStructure;
 
     public IDCardEmployee(String name, Date validFrom, Date validUntil,
-                          int[][] irisStructure, Chip chip, Chip secondChip){
-        super(name, validFrom, validUntil, chip);
+                          int[][] irisStructure){
+        super(name, validFrom, validUntil);
         getPermissionList().add(Permission.Visitor);
         this.irisStructure = irisStructure;
-        this.secondChip = secondChip;
     }
 
     public IDCardEmployee() {

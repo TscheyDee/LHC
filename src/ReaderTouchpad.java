@@ -2,9 +2,14 @@ public class ReaderTouchpad extends Reader {
 
     private Touchpad touchpad;
 
-    public ReaderTouchpad(IrisScanner scanner, IDCard idCard, IReaderTechnology iReaderTechnology, Touchpad touchpad){
-        super(scanner, idCard, iReaderTechnology);
+    public ReaderTouchpad(IrisScanner scanner, FingerprintScanner fingerprintScanner, Touchpad touchpad){
+        super(scanner, fingerprintScanner);
         this.touchpad = touchpad;
+    }
+
+    public String setPassword(String password) {
+        touchpad.setInput(password);
+        return touchpad.getInput();
     }
 
     public Touchpad getTouchpad() {

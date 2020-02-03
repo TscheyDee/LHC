@@ -1,4 +1,5 @@
 public interface IWriter {
 
-    public void write();
+    public void writeWithAES(String data);
+    public void writeWithMD5(String data);
 }

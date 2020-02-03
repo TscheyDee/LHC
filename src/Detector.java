@@ -93,7 +93,7 @@ public class Detector extends Subscriber implements IDetector {
     }
 
     public int search(String str, String pattern) {
-        String searchString = str
+        String searchString = str;
 
         String jarName = Configuration.searchAlgorithm.getName() + ".jar";
 

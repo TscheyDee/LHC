@@ -1,5 +1,5 @@
 public interface IScanner {
 
-    public void scan(int[][] input);
+    public int[][] scan(Person person);
 
 }

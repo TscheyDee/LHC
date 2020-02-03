@@ -1,19 +1,16 @@
 public class Chip {
 
-    private String password = "helloLHC2020";
-    private IDCard idCard;
+    private String data;
 
-    public Chip(String password, IDCard idCard) {
-        this.password = password;
-        this.idCard = idCard;
+    public Chip() {
     }
 
-    public String getPassword() {
-        return password;
+    public String getData() {
+        return data;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setData(String data) {
+        this.data = data;
     }
 
 }

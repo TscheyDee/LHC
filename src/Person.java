@@ -5,14 +5,26 @@ public class Person {
     protected int iris[][] = new int[10][10];
 
 
-    public Person(String name, int iris[][]){
+    public Person(String name){
         this.id =  getNewId();
         this.name = name;
-        this.iris = iris;
+        this.iris = generateIris();
     }
 
     public int getNewId() {
         return (int)(Math.random() * (99999-10000) + 10000);
+    }
+
+    public int[][] generateIris(){
+        int[][] generatedIris = new int[10][10];
+
+        for(int i=0; i<10; i++){
+            for(int j=0; j<10; j++){
+                generatedIris[i][j] = (int)(Math.random() * (9-1) + 1);
+            }
+        }
+
+        return generatedIris;
     }
 
     public int getId() {

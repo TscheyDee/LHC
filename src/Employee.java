@@ -6,11 +6,10 @@ public abstract class Employee extends Person {
     protected IDCardEmployee idCardEmployee;
 
 
-    public Employee(String name, int iris[][], boolean isManager, boolean isMentor,
+    public Employee(String name, boolean isManager, boolean isMentor,
                     boolean hasBudgetResponsibility,
                     IDCardEmployee idCardEmployee){
-        super(name, iris);
-        this.iris = iris;
+        super(name);
         this.isManager = isManager;
         this.isMentor = isMentor;
         this.hasBudgetResponsibility = hasBudgetResponsibility;
@@ -47,13 +46,5 @@ public abstract class Employee extends Person {
 
     public void setIdCardEmployee(IDCardEmployee idCardEmployee) {
         this.idCardEmployee = idCardEmployee;
-    }
-
-    public int[][] getIris() {
-        return iris;
-    }
-
-    public void setIris(int[][] iris) {
-        this.iris = iris;
     }
 }

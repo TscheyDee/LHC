@@ -8,7 +8,7 @@ public enum CardManagement implements ICardManagement {
 
     private HashMap<Integer, IDCard> idCardHashMap;
     private ReaderTouchpad touchpadReader;
-    private CryptogrpahyManagement cryptogrpahyManagement;
+    private Writer writer;
 
 
     public void createIDCard(Employee employee, int[][] iris, String fingerprint, IDCard idCard) {
@@ -17,19 +17,15 @@ public enum CardManagement implements ICardManagement {
         cal.add(Calendar.YEAR, 1); // to get previous year add -1
         Date nextYear = cal.getTime();
 
-        String password = "helloLHC2020";
-        String encryptedPW = encryptPassword(password);
-        Chip chip1 = new Chip(encryptedPW, idCard);
-
-        String newFingerprint = MD5CryptoUtilities.instance.generate(employee.getName());
-        Chip chip2 = new Chip(newFingerprint, idCard);
-
-        touchpadReader.getIrisScanner().scan(iris);
-        int[][] newIris = touchpadReader.getIrisScanner().getIris();
+        int[][] newIris = touchpadReader.scanIris(employee);
 
         IDCardEmployee idCardEmployee = new IDCardEmployee(
-                employee.getName(), today,
-                nextYear, newIris, chip1, chip2);
+                employee.getName(), today, nextYear, newIris);
+
+        String password = "helloLHC2020";
+        writeDataAES(idCardEmployee, password);
+
+        writeDataMD5(idCardEmployee, employee.getName());
 
         employee.setIdCardEmployee(idCardEmployee);
     }
@@ -42,30 +38,18 @@ public enum CardManagement implements ICardManagement {
         cal.add(Calendar.WEEK_OF_YEAR, 1);
         Date nextYear = cal.getTime();
 
-        touchpadReader.getTouchpad().setInput(password);
-        String newPassword = touchpadReader.getTouchpad().getInput();
-
-        //String encryptedPW = AES.encrypt(newPassword, "secret");
-        String encryptedPW = encryptPassword(newPassword);
-        idCard.setChip(new Chip(encryptedPW, idCard));
-
         IDCardVisitor idCardVisitor = new IDCardVisitor(
-                visitor.getName(), today, nextYear, new Chip(encryptedPW, idCard));
+                visitor.getName(), today, nextYear);
+
+        String newPassword = touchpadReader.setPassword(password);
+        writeDataAES(idCardVisitor, newPassword);
+
         visitor.setIdCardVisitor(idCardVisitor);
-    }
-
-    public String encryptPassword(String password){
-        return cryptogrpahyManagement.encrypt(password, cryptogrpahyManagement.getKey());
-    }
-
-    public String decryptPassword(String password){
-        return cryptogrpahyManagement.decrypt(password, cryptogrpahyManagement.getKey());
     }
 
     public void changePassword(IDCard idCard, String oldPassword, String newPassword){
         if(verifyPassword(idCard, oldPassword)){
-            touchpadReader.getTouchpad().setInput(newPassword);
-            idCard.getChip().setPassword( touchpadReader.getTouchpad().getInput());
+            writeDataAES(idCard, newPassword);
         }
         else{
             System.out.println("---Invalid ID card verification!");
@@ -73,25 +57,23 @@ public enum CardManagement implements ICardManagement {
     }
 
     public boolean verifyPassword(IDCard idCard, String enteredPassword) {
-        touchpadReader.getTouchpad().setInput(enteredPassword);
-        String enteredPIN = touchpadReader.getTouchpad().getInput();
-        String password = idCard.getChip().getPassword();
-        password = decryptPassword(password);
+        String enteredPIN = touchpadReader.setPassword(enteredPassword);
+        String password = idCard.getChip().getData();
+        password = touchpadReader.decryptPassword(password);
 
         return (enteredPIN == password);
     }
 
     public boolean verifyFingerprint(IDCardEmployee idCard, String scannedFinerprint) {
-        String cardFingerprint = idCard.getFingerprintChip().getPassword();
+        String cardFingerprint = idCard.getFingerprintChip().getData();
         scannedFinerprint = MD5CryptoUtilities.instance.generate(scannedFinerprint);
 
         return (scannedFinerprint == cardFingerprint);
     }
 
-    public boolean verifyIris(IDCardEmployee idCard, int[][] scannedIris) {
-        touchpadReader.getIrisScanner().scan(scannedIris);
-        int[][] iris = touchpadReader.getIrisScanner().getIris();
-        int[][] cardIris = idCard.getIrisStructure();
+    public boolean verifyIris(Employee employee) {
+        int[][] iris = touchpadReader.scanIris(employee);
+        int[][] cardIris = employee.getIdCardEmployee().getIrisStructure();
 
         return (iris == cardIris);
     }
@@ -125,5 +107,17 @@ public enum CardManagement implements ICardManagement {
             System.out.println("Both dates are equal");
             return false;
         }
+    }
+
+    public void writeDataAES(IDCard idCard, String data){
+        writer.setIdCard(idCard);
+        writer.writeWithAES(data);
+        writer.removeIDCard();
+    }
+
+    public void writeDataMD5(IDCard idCard, String data){
+        writer.setIdCard(idCard);
+        writer.writeWithMD5(data);
+        writer.removeIDCard();
     }
 }

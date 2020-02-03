@@ -5,7 +5,7 @@ public enum Reception {
 
     private Stack<IDCardVisitor> blankIDCards;
     private Employee employee;
-    private CardManagement cardManagement;
+    private Writer writer;
 
 
     public void addBlankIDCard() {
@@ -15,14 +15,14 @@ public enum Reception {
 
     public void createNewIDCard(Visitor visitor, String password) {
         IDCardVisitor idCard = blankIDCards.pop();
-        cardManagement.createIDCard(visitor, idCard, password);
+        CardManagement.instance.createIDCard(visitor, idCard, password);
     }
 
     public void lockIDCard(IDCardVisitor idCard){
-        cardManagement.lockIDCard(idCard);
+        CardManagement.instance.lockIDCard(idCard);
     }
 
     public void clearIDCard(IDCardVisitor idCard){
-        cardManagement.clearIDCard(idCard);
+        CardManagement.instance.clearIDCard(idCard);
     }
 }

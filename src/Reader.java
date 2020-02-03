@@ -6,19 +6,19 @@ public class Reader implements IReader{
     private FingerprintScanner fingerprintScanner;
 
     private IReaderTechnology iReaderTechnology;
-    private CardManagement cardManagement;
+    private CryptogrpahyManagement cryptogrpahyManagement;
 
-    public Reader(IrisScanner irisScanner, IDCard idCard, IReaderTechnology iReaderTechnology){
+
+    public Reader(IrisScanner irisScanner, FingerprintScanner fingerprintScanner){
         this.irisScanner = irisScanner;
-        this.idCard = idCard;
-        this.iReaderTechnology = iReaderTechnology;
+        this.fingerprintScanner = fingerprintScanner;
     }
 
     public boolean insertCard(IDCardVisitor idCard, IReaderTechnology iReaderTechnology,
                               String password){
         this.idCard = idCard;
         this.iReaderTechnology = iReaderTechnology;
-        boolean passwordVerification = cardManagement.verifyPassword(idCard, password);
+        boolean passwordVerification = CardManagement.instance.verifyPassword(idCard, password);
 
         return (passwordVerification == true);
     }
@@ -27,33 +27,11 @@ public class Reader implements IReader{
                               String password, int[][] iris){
         this.idCard = idCard;
         this.iReaderTechnology = iReaderTechnology;
-        boolean passwordVerification = cardManagement.verifyPassword(idCard, password);
-        boolean irisVerification = cardManagement.verifyIris(idCard, iris);
+        boolean passwordVerification = CardManagement.instance.verifyPassword(idCard, password);
+        boolean irisVerification = CardManagement.instance.verifyIris(idCard, iris);
 
         return (passwordVerification == true && irisVerification == true);
     }
-
-
-    /*
-
-    public IDCard insertCard(IDCardVisitor idCard,
-    IReaderTechnology iReaderTechnology){
-
-        iReaderTechnology.detectIDCard(idCard);
-        return iReaderTechnology.getIDCard();
-    }
-
-    public boolean verifyIDCard(IDCardVisitor idCard,
-    String password, int[][] iris){
-
-        IDCardVisitor newDdCard = insertCard(idCard);
-
-        boolean passwordVerification = cardManagement.verifyPassword(idCard, password);
-        boolean irisVerification = cardManagement.verifyIris(idCard, iris);
-
-        return (passwordVerification == true && irisVerification == true);
-    }
-    */
 
     public void removeIDCard(){
         if (idCard != null) {
@@ -63,35 +41,15 @@ public class Reader implements IReader{
         }
     }
 
-    public int[][] scanIris() {
-        return irisScanner.getIris();
+    public String decryptPassword(String data){
+        return cryptogrpahyManagement.decrypt(data, cryptogrpahyManagement.getKey());
     }
 
-    public IrisScanner getIrisScanner() {
-        return irisScanner;
-    }
-
-    public void setIrisScanner(IrisScanner scanner) {
-        this.irisScanner = scanner;
-    }
-
-    public FingerprintScanner getFingerprintScanner() {
-        return fingerprintScanner;
-    }
-
-    public void setFingerprintScanner(FingerprintScanner fingerprintScanner) {
-        this.fingerprintScanner = fingerprintScanner;
+    public int[][] scanIris(Person person) {
+        return irisScanner.scan(person);
     }
 
     public IReaderTechnology getiReaderTechnology() {
         return iReaderTechnology;
-    }
-
-    public void setiReaderTechnology(IReaderTechnology iReaderTechnology) {
-        this.iReaderTechnology = iReaderTechnology;
-    }
-
-    public CardManagement getCardManagement() {
-        return cardManagement;
     }
 }

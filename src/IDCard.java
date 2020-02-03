@@ -13,13 +13,15 @@ public abstract class IDCard {
 
     private Chip chip;
 
-    public IDCard(String name, Date validFrom, Date validUntil, Chip chip) {
+    public IDCard(String name, Date validFrom, Date validUntil) {
         this.id = getNewId();
         this.name = name;
         this.validFrom = validFrom;
         this.validUntil = validUntil;
+
         this.permissionList.add(Permission.Visitor);
-        this.chip = chip;
+
+        //this.chip = chip;
         this.isLocked = false;
     }
 
@@ -28,8 +30,9 @@ public abstract class IDCard {
         this.name = "";
         this.validFrom = null;
         this.validUntil = null;
-        this.permissionList = null;
-        this.chip = null;
+
+        this.permissionList.add(Permission.Visitor);
+        //this.chip = null;
         this.isLocked = false;
     }
 
