@@ -11,7 +11,8 @@ public class Application {
     }
 
     public static void UseCase1(){
-        Employee employee = EmployeeManagement.instance.createEmployee("Max Mustermann", EmployeeType.RESEARCHER);
+        EmployeeManagement.instance.createEmployee("Max Mustermann", EmployeeType.RESEARCHER);
+        Employee employee = EmployeeManagement.instance.getEmployeeMap().get(0);
         SecurityCenter.instance.createNewIDCard(employee);
     }
 
@@ -34,7 +35,7 @@ public class Application {
     }
 
     public static void UseCase4(){
-        Employee employee = EmployeeManagement.instance.createEmployee("Max Mustermann", EmployeeType.RESEARCHER);
+        Employee employee = EmployeeManagement.instance.getEmployeeMap().get(0);
         SecurityCenter.instance.createNewIDCard(employee);
 
         ReaderTouchpad readerTouchpad = new ReaderTouchpad(new IrisScanner(), new FingerprintScanner(), new Touchpad());
@@ -57,7 +58,7 @@ public class Application {
     }
 
     public static void UseCase7(){
-        Employee employee = EmployeeManagement.instance.createEmployee("Max Mustermann", EmployeeType.RESEARCHER);
+        Employee employee = EmployeeManagement.instance.getEmployeeMap().get(0);
         SecurityCenter.instance.createNewIDCard(employee);
         SecurityCenter.instance.lockIDCard(employee.getIdCardEmployee());
         System.out.println("---Is IDCard locked?: " + employee.getIdCardEmployee().isLocked());
