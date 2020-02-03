@@ -35,20 +35,8 @@ public enum ControlCenter {
         }
     }
 
-    public boolean verifyEmployee(Employee employee, String pw,
-                               int[][] iris, String fingerprint){
-        IDCardEmployee idCard = employee.getIdCardEmployee();
-
-        if(cardManagement.validDate(employee.getIdCardEmployee()) && !idCard.isLocked()){
-            boolean b1 = cardManagement.verifyPassword(idCard, pw);
-            boolean b3 = cardManagement.verifyFingerprint(idCard, fingerprint);
-            boolean b2 = cardManagement.verifyIris(employee);
-
-            return (b1 && b2 && b3);
-        }
-        else{
-            return false;
-        }
+    public boolean verifyEmployee(Employee employee, String pw){
+        return CardVerification.instance.verifyEmployeeFull(employee, pw);
     }
 
     public ReaderTouchpad getReaderTouchpad() {

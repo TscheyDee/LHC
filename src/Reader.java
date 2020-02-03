@@ -14,23 +14,14 @@ public class Reader implements IReader{
         this.fingerprintScanner = fingerprintScanner;
     }
 
-    public boolean insertCard(IDCardVisitor idCard, IReaderTechnology iReaderTechnology,
-                              String password){
+    public void insertCard(IDCardVisitor idCard, IReaderTechnology iReaderTechnology){
         this.idCard = idCard;
         this.iReaderTechnology = iReaderTechnology;
-        boolean passwordVerification = CardManagement.instance.verifyPassword(idCard, password);
-
-        return (passwordVerification == true);
     }
 
-    public boolean insertCard(IDCardEmployee idCard, IReaderTechnology iReaderTechnology,
-                              String password, int[][] iris){
+    public void insertCard(IDCardEmployee idCard, IReaderTechnology iReaderTechnology){
         this.idCard = idCard;
         this.iReaderTechnology = iReaderTechnology;
-        boolean passwordVerification = CardManagement.instance.verifyPassword(idCard, password);
-        boolean irisVerification = CardManagement.instance.verifyIris(idCard, iris);
-
-        return (passwordVerification == true && irisVerification == true);
     }
 
     public void removeIDCard(){

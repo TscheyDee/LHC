@@ -2,8 +2,7 @@ public class Slot implements IReaderTechnology {
 
     private IDCard idCard;
 
-    public Slot(IDCard idCard){
-        this.idCard = idCard;
+    public Slot(){
     }
 
     public void detectIDCard(IDCard idCard){

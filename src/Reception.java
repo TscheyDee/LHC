@@ -1,7 +1,7 @@
 import java.util.Stack;
 
 public enum Reception {
-    instance ;
+    instance;
 
     private Stack<IDCardVisitor> blankIDCards;
     private Employee employee;

@@ -14,33 +14,27 @@ public enum EmployeeManagement implements IEmployeeManagement{
 
         switch (type) {
             case SECURITY_OFFICER:
-                employee = new Researcher(name, iris, false,
-                        false, false, null);
+                employee = new Researcher(name);
                 return employee;
 
             case RESEARCHER:
-                employee = new SecurityOfficer(name, iris, false,
-                        false, false, null);
+                employee = new SecurityOfficer(name);
                 return employee;
 
             case SCIENTIFIC_ASSISTANT:
-                employee = new ScientificAssistant(name, iris, false,
-                        false, false, null);
+                employee = new ScientificAssistant(name);
                 return employee;
 
             case HR_ASSISTANT:
-                employee = new HRAssistant(name, iris, false,
-                        false, false, null);
+                employee = new HRAssistant(name);
                 return employee;
 
             case HR_CONSULTANT:
-                employee = new HRConsultant(name, iris, false,
-                        false, false, null);
+                employee = new HRConsultant(name);
                 return employee;
 
             case HR_HOD:
-                employee = new HRHoD(name, iris, false,
-                        false, false, null);
+                employee = new HRHoD(name);
                 return employee;
 
             default:

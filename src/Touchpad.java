@@ -3,7 +3,7 @@ public class Touchpad {
     private String input;
 
     public Touchpad(){
-        this.input = input;
+
     }
 
     public String getInput(){

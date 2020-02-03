@@ -2,11 +2,8 @@ public class SecurityOfficer extends  Employee {
 
     private boolean hasWeapon;
 
-    public SecurityOfficer(String name, int iris[][], boolean isManager,
-                           boolean isMentor, boolean hasBudgetResponsibility,
-                           IDCardEmployee idCardEmployee){
-        super(name, iris, isManager, isMentor, hasBudgetResponsibility, idCardEmployee);
-        this.hasWeapon = hasWeapon;
+    public SecurityOfficer(String name){
+        super(name);
     }
 
     public boolean isHasWeapon() {

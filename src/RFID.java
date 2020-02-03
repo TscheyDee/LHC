@@ -2,8 +2,8 @@ public class RFID implements IReaderTechnology {
 
     private IDCard idCard;
 
-    public RFID(IDCard idCard){
-        this.idCard = idCard;
+    public RFID(){
+
     }
 
     public void detectIDCard(IDCard idCard){

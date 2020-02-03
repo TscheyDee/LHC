@@ -50,4 +50,8 @@ public class Person {
     public void setIris(int[][] iris) {
         this.iris = iris;
     }
+
+    public String getFingerprint() {
+        return getName();
+    }
 }

@@ -5,15 +5,8 @@ public abstract class Employee extends Person {
     protected boolean hasBudgetResponsibility;
     protected IDCardEmployee idCardEmployee;
 
-
-    public Employee(String name, boolean isManager, boolean isMentor,
-                    boolean hasBudgetResponsibility,
-                    IDCardEmployee idCardEmployee){
+    public Employee(String name){
         super(name);
-        this.isManager = isManager;
-        this.isMentor = isMentor;
-        this.hasBudgetResponsibility = hasBudgetResponsibility;
-        this.idCardEmployee = idCardEmployee;
     }
 
     public boolean isManager() {

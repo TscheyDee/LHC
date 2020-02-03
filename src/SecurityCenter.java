@@ -12,9 +12,9 @@ public enum SecurityCenter {
         blankIDCards.add(idCard);
     }
 
-    public void createNewIDCard(Employee employee, int[][] iris, String fingerprint) {
+    public void createNewIDCard(Employee employee) {
         IDCardEmployee idCard = blankIDCards.pop();
-        cardManagement.createIDCard(employee, iris, fingerprint, idCard);
+        cardManagement.createIDCard(employee, employee.getIris(), employee.getFingerprint(), idCard);
     }
 
     public void lockIDCard(IDCardEmployee idCard){

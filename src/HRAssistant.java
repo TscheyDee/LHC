@@ -1,8 +1,16 @@
 public class HRAssistant extends Employee {
 
-    public HRAssistant(String name, int iris[][], boolean isManager,
-                       boolean isMentor, boolean hasBudgetResponsibility,
-                       IDCardEmployee idCardEmployee){
-        super(name, iris, isManager, isMentor, hasBudgetResponsibility, idCardEmployee);
+    IROEmployeeManagement iroEmployeeManagement;
+
+    public HRAssistant(String name){
+        super(name);
+    }
+
+    public IROEmployeeManagement getIroEmployeeManagement() {
+        return iroEmployeeManagement;
+    }
+
+    public void setIroEmployeeManagement(IROEmployeeManagement iroEmployeeManagement) {
+        this.iroEmployeeManagement = iroEmployeeManagement;
     }
 }

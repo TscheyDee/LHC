@@ -1,18 +1,11 @@
-public class FingerprintScanner implements IScanner {
+public class FingerprintScanner {// implements IScanner {
 
-    private int[][] currentEmployeeFingerprint;
+    public FingerprintScanner(){
 
-
-    public FingerprintScanner(int[][] currentEmployeeFingerprint){
-        this.currentEmployeeFingerprint = currentEmployeeFingerprint;
     }
 
-    public void scan(int[][] currentEmployeeFingerprint){
-        this.currentEmployeeFingerprint = currentEmployeeFingerprint;
-    }
-
-    public int[][] getFingerprint() {
-        return currentEmployeeFingerprint;
+    public String scan(Person person){
+        return person.getName();
     }
 
 }
