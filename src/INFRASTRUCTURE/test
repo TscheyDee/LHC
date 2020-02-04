@@ -1,0 +1,222 @@
+Jede Komponente ist in einem seperaten Unterverzeichnis
+Im Falle des MemoryStick sind dies die beiden Unterverzeichnisse exchance_component01 und exchange_componenet_02
+Eine Komponente besteht aus dem Interface und der korrespondierenden Realisierung
+Im Falle des MemorySticks sind dies IMemoryStick und MemoryStick
+Die Realisieurng der Komponente beinhaltet einen Port, welche die Services der Komponente entsprechend den Nutzern angibt
+Der Port ist ein sogenannter "distinct interaction point"
+Der Port implementiert das Interface
+Der Port ist eine public inner class in der Realisierung der Komponente
+
+WARUM TRAUT SICH NIEMAND DEN BIRRRA ZU DISSEN
+
+Der Poaart diligiert eine Service -Anfrage an eine innere Methode einer Komponente
+Die inneren Methoden einer Komponente haben die Sichtbarkeit PRIVATE und sind folgkich von außen nicht aufrufbar
+durch diese Defintion der SIchtbarkeit wird das Prinzip der Kapselung einer Komponente realisiert
+Eine Komponente ist nicht instanziierbar
+
+nicht instanziierbarkeit wird realisiert durch
+- sie definieren ein Attribut instance mit der Sichtbarkeit und dem Schlüsselwort static
+- diesem Attribut isntance weisen sie eine Instanz unmittelbar in der Komponente zu
+- das heißt eine Komponente wird nicht von außen instanziiert (wie bei Klassen), sondern eine Komponente instanzieert sich per Definition selbst
+- es wird eine statische Methode getInstance() welche Reflection einen Zugriff auf dieses Attribut ermöglicht
+
+Es wird ein Attribut Port vom Typ Port mit der Sichtbarkeit public definiert
+//Port port;
+Da es sich um den Port um ein Kommunikationskanal um die Außenwelt handelt ist die Sichtbarkeit public
+Da ein eine Komponente nicht instaziierbar ist wird der Konstruktor mit der Sichtbarkeit private definiert
+//private MemoryStcik(){
+    port = new Port();
+}
+innerhalb des Kontruktors wird er Port instanziiert
+Über diese Instanziierung des Ports ist es möglich, dass Nutzer von Außen auf die in der Schnittstelle spezifizierten Services der Komponente von Außen zugreifen können
+
+Um eine Komponente innerhalb einer APPLICATION.Application zu nutzen brauche ich drei Attribute
+
+Im ersten Schritt wird über den URL Class Loader und Class.forName die Klasse dynamisch aus dem Java Archive herausgeladen
+
+Im 2. Schritt wird die Methode getInstance() dynamisch aufgerufen und die statische Instanz der Komponente geladen
+
+Im 3. Scritt lade ich die Refferenz auf den Port
+
+
+Für die Automatisierung der Erstellung einer Komponente befindet sich im Verzechnis der Komponente eine Datei build.xml
+Durch doppel click auf den ant task wird die korresponierende Aktion im Ant-Skript (build.xml) ausgeführt
+
+
+3 Komponenten, 3 Verzeichnisse mit Komp
+3 Alogorithmen
+BoyerMoore
+
+
+1 Phase laden des Service aus Komponente
+2. Phase Service auf Experimente anwenden
+
+
+____________________________________________________________________________________________________________________________________________________________________________________
+
+Zielsetzung einer leistungsfähigen SOftwarearchitektur sind hohe Kohäsion und minimale Kopplungen
+Durch die Anwendung/Nutzung eines Eventbuses können dymnamisch sogenannte Subscriber diesen hinzugefügt werden
+In der SOA existiert eine Klasse, welche für die Verwaltung des Eventbuses verantwortlich ist
+In der Vorliegenden Beispiel EmergencyCallBox die vorliegende Instanz
+Diese zentrale Instanz für die Verwaltung des Eventbuses besitzt einen Mechanismus um neue Subscriber für den Eventbus zu registrieren
+Die Klasse Subscriber ist abstrakt, um einen konkreten Subscriber
+Ein konkreter Subscriber besitzt einen Mechanismus (Methode) um auf einen über den EventBus gesandets Event zu reagieren
+
+_____________________________________________________________________________________________________________________________________________________________________________________
+
+
+Selbstudium 5h - 1 Aufgabe
+2 Design Patterns - Klausurtraining
+
+___________________________________________________________________________
+
+Unklar:
+- IReaderTechnology -> für was gut? Slot & RFID
+- Writer needs RFID & SLOT?
+- Writer writes NOT ONLY CHIPS
+- IrisScanner : NOT SET IRIS! -> GET IRIS FROM PERSON!
+
+__________________________________________________________________________________
+
+BUILDER:
+-Das Zeichen (+) bedeutet inner class
+-builder class - fürs builden der klasse "CAKE"
+-füge verschiedene objekte hinzu gibt immer builder zurück
+-arbeitet immer mit neuem builder objekt
+-komplexes projekt "cake" wiird sukzessiv aufgebaut
+-am ende wird cake zurück gegeben
+-builder neu erstellen für neues objekt
+-wenn ein objekt durch einen Builder erzeugt wird, ist der Kontruktor private mit dem Parameter Buider
+-hiermeit wird verhindert dass ein komplexes Objekt ohne den korresponiderenden Builder erzuegut wird
+-die innere klasse ist static
+
+
+FACTORY (NICHT KLAUSUR RELEVANT)
+-die methoden einer facgory um ein obkelt zu erstellen sind static
+-hierdurch wird sicher gestellt dass für die instanziierung einer factory keine instanz der factory notwendig ist
+
+
+ADAPTER:
+-was wird realisiert und was wird vererbt
+-adapter wirkt als art übersetzer
+
+
+BRIDGE (5. solid):
+-schnittstelle anstatt konkretem objekt
+-fernbedienung kann beide fernseher bedienen
+ wegen ITV
+-
+
+COMPOSITE:
+-die composite struktur ermöglicht die realisierung einer Baumstruktur
+-über diese Baumstruktur ist ein einheitlicher Zugriff auf die Objekte möglich
+-bei einer composite struktur werden die elemente beginnend bei den Blättern sukzessive bis zum Wurzelelement (rot) aufgebaut
+
+
+DECORATOR:
+-IS RICHTIG COOL
+-spezialisierung
+- = new Whip(new Mocca(new Latte()));
+
+FACADE (NICHT KLAUSUR RELEVANT):
+-eine Facade beitet eine (vereinfahte) Schnittstelle zu einem komplexene Subsystem an
+-die tatsächlichen ABläufe hinter der facade bleiben dem Anwender verborgen
+-
+
+
+FLYWEIGHT:
+   Das pfyweigth patter ist geeignet bei strukturen mit einer hohen anzahl von objekten, welche sich eingehscaften (internal state) teilen.
+   Diese Flyweight Pattern basiert auf einer Mapstruktur (MAP), welches durch das sogn. "lookup" die ANzahl der neu zu erstellenden objekte reduziert.
+   Der Prozess läuft wie folgt ab:
+   1. Bevor das Objekt erstellt wird, erfolgt ein lookup in der Mpstruktur, ob dieses Objekt bereits existiert.
+   2. Ist dies der Fall, wird das bereits erstellte und in der Objektstrukture enthaltene Element zurückgeliefert
+   3. Ist dies nicht der Fall, wird das Objekt erstellt, der Mapstruktur hinzugefpgt und von der Mapstruktur zurückgeliefert.
+
+
+PROXY
+- kontrolliert den Zugriff von einem objekt a auf ein objekt b
+- zwischen dem objekt a & objekt b wird über den Proxy eine verbindung hergestellt
+- hierzu hat der Proxy eine referenz auf das objekt b
+-
+
+CHAIN OF RESPONSIBILITY
+- wie ein genehmigungs prozess in der firma
+- open closed prinicple
+- beim cor existiert in der abstrakten hauptklasse ein Attribut successor vom Typ der jeweiligen abstrakten hautpklasse
+- cand handle? wenn nicht, dann weiterreichen (bin ich dafür zuständig?)
+
+
+COMMAND:
+- jemand beauftragt etwas: tue etwas
+- mit dem command pattern ist es möglich, von einem sender zu einem empfänger ein ggf. parametrisiertes kommando zu senden
+- das kommando welches beim empfänger eingeht wird in einem korresp. methodenaufruf übersetzt und ausgeführt
+-
+
+ITERATOR:
+- Bücherregal -> buch für buch durchwandern
+- isEmpty / next ()
+- das iterator pattern ermöglicht das iterieren eines aggregats
+- die nutzer eines iterators ist die struktur des aggregats verborgen
+- über die methode next wird auf das nächste element zugegriffen
+-
+
+MEDIATOR(NICHT KLAUSUR RELEVANT):
+-
+
+
+MEMENTO:
+- das memento pattern ermöglicht das speichern eines internnens status eines objketes
+- über diesesn gespeichtern internen zustand ist es möglich,eine änderung an dem originären objekt rückgänig zu machen
+- STEUERUNG Z
+
+
+OBSERVER (100%):
+- hollywood
+- das observer pattern ermöglicht das eiin Objekt ein anderes Objekt beobachtet und bei änderungen automatisch informiert wird
+- beispiel feuermelder
+
+
+STATE:
+- UND ZWAR, ÄH GUT: das state pattern ermöglicht die kapselung von verhalten in abhängikeit vom korrespo. status
+- hierdurch wird eine Trennung von verhalten und implmetierung realisirt.
+
+
+STRATEGY (NICHT KL-R)
+- kann ich eine family von "algorithemn" definieren, welche in abhängigkiet vom kontext dynamisch zur laufzeit austauschen kann
+
+
+TEMPLATE (NICHT KL_R)
+- abstrakte vaterklasse mit abstrakten metho
+
+
+VISITOR:
+- ermöglicht die differenzierte ausführung eines algorithmus in abhängikeit von dem besuchten objekt
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
