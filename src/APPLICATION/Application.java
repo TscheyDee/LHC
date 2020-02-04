@@ -23,18 +23,18 @@ public class Application {
         UseCase7();
     }
 
-    public static void UseCase1(){
+    private static void UseCase1(){
         EmployeeManagement.instance.createEmployee("Max Mustermann", EmployeeType.RESEARCHER);
         Employee employee = EmployeeManagement.instance.getEmployeeMap().get(0);
         SecurityCenter.instance.createNewIDCard(employee);
     }
 
-    public static void UseCase2(){
+    private static void UseCase2(){
         Visitor visitor = new Visitor("Max Mustermann");
         Reception.instance.createNewIDCard(visitor, "12345");
     }
 
-    public static void UseCase3(){
+    private static void UseCase3(){
         Visitor visitor = new Visitor("Max Mustermann");
         Reception.instance.createNewIDCard(visitor, "12345");
 
@@ -47,7 +47,7 @@ public class Application {
         System.out.println("---Verification: " + result);
     }
 
-    public static void UseCase4(){
+    private static void UseCase4(){
         Employee employee = EmployeeManagement.instance.getEmployeeMap().get(0);
         SecurityCenter.instance.createNewIDCard(employee);
 
@@ -60,17 +60,17 @@ public class Application {
         System.out.println("---Verification: " + result);
     }
 
-    public static void UseCase5(){
+    private static void UseCase5(){
         Researcher researcher = new Researcher("Max Mustermann");
         researcher.getDetector().getExperimentList();
     }
 
-    public static void UseCase6(){
+    private static void UseCase6(){
         HRAssistant hrAssistant = new HRAssistant("Max Mustermann");
         hrAssistant.getIroEmployeeManagement().getEmployeeMap();
     }
 
-    public static void UseCase7(){
+    private static void UseCase7(){
         Employee employee = EmployeeManagement.instance.getEmployeeMap().get(0);
         SecurityCenter.instance.createNewIDCard(employee);
         SecurityCenter.instance.lockIDCard(employee.getIdCardEmployee());
