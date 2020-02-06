@@ -2,8 +2,9 @@ package LHC;
 
 import INFRASTRUCTURE.EXPERIMENT.Analyse;
 import INFRASTRUCTURE.Configuration;
-import INFRASTRUCTURE.EXPERIMENT.Block;
 import INFRASTRUCTURE.EXPERIMENT.Experiment;
+import INFRASTRUCTURE.EXPERIMENT.REPORT.Report;
+import INFRASTRUCTURE.EXPERIMENT.REPORT.ReportEngine;
 import INFRASTRUCTURE.TECHNOLOGY.Reader;
 import com.google.common.eventbus.Subscribe;
 
@@ -11,8 +12,9 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.LinkedList;
-import java.util.concurrent.Flow;
 
 public class Detector extends Subscriber implements IDetector {
 
@@ -21,147 +23,79 @@ public class Detector extends Subscriber implements IDetector {
     private LinkedList<Experiment> experimentList;
     private Reader reader;
 
-    public Detector(boolean isActivated, LinkedList<Experiment> experimentList, Reader reader){
-        this.higgsBosonStructure = this.higgsBosonStructure;
-        this.isActivated = isActivated;
-        this.experimentList = experimentList;
-        this.reader = reader;
+    private Instant start;
+
+    private Method searchString;
+    private Object port;
+
+    private ReportEngine reportEngine;
+
+    public Detector(){
+        super();
+        this.experimentList = new LinkedList<>();
+        this.createSearchMethod();
     }
 
-    public int search(Experiment experiment) {
-        String searchString = experiment.toString();
+    public void addExperimentToList(Experiment experiment) {
+        this.experimentList.add(experiment);
 
-        String jarName = Configuration.searchAlgorithm.getName() + ".jar";
+        Report newReport = reportEngine.createReport(experiment);
+        experiment.setReport(newReport);
+    }
 
-        Class<?> clazz = null;
-        Object instance = null;
-        Object port = null;
+    public Report getReportFromExperiment(Experiment experiment){
+        return experiment.getReport();
+    }
 
-        // Hier muss nochgeändert werden: ALle auf die neue Architektur anwenden, Hierfür den Enum verwenden: Enum.name + ".jar"
-        /*String fileSeparator = System.getProperty("file.separator");
-        String userDirectory = System.getProperty("user.dir");
-        String typeOfMemoryStick = "02";
-        String nameOfSubFolder = "exchange_component_" + typeOfMemoryStick + fileSeparator + "jar";
-        String nameOfJavaArchive = "MemoryStick.jar";
-        String subFolderPathOfJavaArchive = nameOfSubFolder + fileSeparator + nameOfJavaArchive;
-        String fullPathToJavaArchive = userDirectory + subFolderPathOfJavaArchive;
-        String nameOfClass = "MemoryStick";*/
+    public Experiment getExperimentFromReport(Report report){
+        return report.getExperiment();
+    }
 
-        String nameOfClass = Configuration.searchAlgorithm.getName();
-        String subFolderPathOfJavaArchive = Configuration.searchAlgorithm.getPath();
-
-        System.out.println("--- SearchConfiguration");
-        System.out.println("subFolderPathOfJavaArchive : " + subFolderPathOfJavaArchive);
-        System.out.println("nameOfClass                : " + nameOfClass);
-        System.out.println();
-
-        System.out.println("--- loadClazzFromJavaArchive");
-        try {
-            URL[] urls = {new File(subFolderPathOfJavaArchive).toURI().toURL()};
-            URLClassLoader urlClassLoader = new URLClassLoader(urls, Detector.class.getClassLoader());
-            clazz = Class.forName(nameOfClass, true, urlClassLoader);
-            System.out.println("class    : " + clazz.toString() + " - " + clazz.hashCode());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("--- provideInstanceOfClass");
-        try {
-            instance = clazz.getMethod("getInstance").invoke(null);
-            System.out.println("instance : " + instance.toString() + " - " + instance.hashCode());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        System.out.println("--- provideComponentPort");
-        try {
-            port = clazz.getDeclaredField("port").get(instance);
-            System.out.println("port     : " + port.toString() + " - " + port.hashCode());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("--- executeSearchMethodUsingPort");
-        try {
-            Method method = port.getClass().getMethod("search", String.class, String.class);
-            System.out.println(method);
-
-            int result = (int) method.invoke(port, searchString, higgsBosonStructure);
-            System.out.println("result   : " + result);
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return -1;
+    public void viewExperiments() {
+        for(Experiment experiment : this.experimentList) {
+            System.out.println(experiment);
         }
     }
 
-    public int search(String searchString, String pattern) {
-
-        String jarName = Configuration.searchAlgorithm.getName() + ".jar";
-
-        Class<?> clazz = null;
-        Object instance = null;
-        Object port = null;
-
-        // Hier muss nochgeändert werden: ALle auf die neue Architektur anwenden, Hierfür den Enum verwenden: Enum.name + ".jar"
-        /*String fileSeparator = System.getProperty("file.separator");
-        String userDirectory = System.getProperty("user.dir");
-        String typeOfMemoryStick = "02";
-        String nameOfSubFolder = "exchange_component_" + typeOfMemoryStick + fileSeparator + "jar";
-        String nameOfJavaArchive = "MemoryStick.jar";
-        String subFolderPathOfJavaArchive = nameOfSubFolder + fileSeparator + nameOfJavaArchive;
-        String fullPathToJavaArchive = userDirectory + subFolderPathOfJavaArchive;
-        String nameOfClass = "MemoryStick";*/
-
-        String nameOfClass = Configuration.searchAlgorithm.getName();
-        String subFolderPathOfJavaArchive = Configuration.searchAlgorithm.getPath();
-
-        System.out.println("--- SearchConfiguration");
-        System.out.println("subFolderPathOfJavaArchive : " + subFolderPathOfJavaArchive);
-        System.out.println("nameOfClass                : " + nameOfClass);
-        System.out.println();
-
-
-        System.out.println("--- loadClazzFromJavaArchive");
+    private void createSearchMethod() {
+        Object instance;
         try {
-            URL[] urls = {new File(subFolderPathOfJavaArchive).toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.pathToJar).toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, Detector.class.getClassLoader());
-            clazz = Class.forName(nameOfClass, true, urlClassLoader);
-            System.out.println("class    : " + clazz.toString() + " - " + clazz.hashCode());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            Class clazz = Class.forName(Configuration.instance.searchAlgorithm.toString(), true, urlClassLoader);
 
-
-        System.out.println("--- provideInstanceOfClass");
-        try {
             instance = clazz.getMethod("getInstance").invoke(null);
-            System.out.println("instance : " + instance.toString() + " - " + instance.hashCode());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-
-        System.out.println("--- provideComponentPort");
-        try {
             port = clazz.getDeclaredField("port").get(instance);
-            System.out.println("port     : " + port.toString() + " - " + port.hashCode());
-        } catch (Exception e) {
+            searchString = port.getClass().getMethod("search", String.class, String.class);
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public void search(Experiment experiment) {
+        for (int i = 0; i < 200000; i++) {
+            String hayStack = experiment.getBlock(i).getStructure();
+            try {
+                int pos = (Integer) this.searchString.invoke(this.port, hayStack, higgsBosonStructure);
 
-        System.out.println("--- executeSearchMethodUsingPort");
-        try {
-            Method method = port.getClass().getMethod("search", String.class, String.class);
-            System.out.println(method);
+                if (pos != -1) {
+                    // Analysis time
+                    Instant end = Instant.now();
+                    long analyseTime = Duration.between(this.start, end).toMillis();
 
-            int result = (int) method.invoke(port, searchString, higgsBosonStructure);
-            System.out.println("result   : " + result);
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return -1;
+                    experiment.setHiggsBosonFound();
+
+                    System.out.println(experiment + " -  Block-ID: " + Integer.toString(i) + " - "
+                            + hayStack + " - Analyse-Time " + Long.toString(analyseTime) + " ms");
+
+                    return;
+                }
+
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -187,14 +121,9 @@ public class Detector extends Subscriber implements IDetector {
 
     @Subscribe
     public void receive(Analyse analyse) {
-        for (Experiment experiment : experimentList) {
-            for (Block block : experiment.getBlocks()) {
-                int result = search(block.getStructure(), higgsBosonStructure);
-                if (result != -1) {
-                    experiment.setHiggsBosonFound(true);
-                    System.out.println("Higgs boson found");
-                }
-            }
+        start = Instant.now();
+        for(Experiment experiment : this.experimentList) {
+            this.search(experiment);
         }
     }
 }

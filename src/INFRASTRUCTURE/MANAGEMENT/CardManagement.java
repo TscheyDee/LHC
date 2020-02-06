@@ -15,6 +15,7 @@ public enum CardManagement implements ICardManagement {
     instance;
 
     private HashMap<Integer, IDCard> idCardHashMap;
+    private int keyCount = 0;
     private ReaderTouchpad touchpadReader;
     private Writer writer;
 
@@ -24,6 +25,7 @@ public enum CardManagement implements ICardManagement {
         Date today = cal.getTime();
         cal.add(Calendar.YEAR, 1); // to get previous year add -1
         Date nextYear = cal.getTime();
+
 
         int[][] newIris = touchpadReader.scanIris(employee);
 
@@ -35,7 +37,9 @@ public enum CardManagement implements ICardManagement {
 
         writeDataMD5(idCardEmployee, employee.getName());
 
-        employee.setIdCardEmployee(idCardEmployee);
+
+        addCardToMap(idCard);
+        EmployeeManagement.instance.assignIDCard(idCardEmployee, employee);
     }
 
     public void createIDCard(Visitor visitor, IDCard idCard, String password){
@@ -52,6 +56,7 @@ public enum CardManagement implements ICardManagement {
         String newPassword = touchpadReader.setPassword(password);
         writeDataAES(idCardVisitor, newPassword);
 
+        addCardToMap(idCard);
         visitor.setIdCardVisitor(idCardVisitor);
     }
 
@@ -127,5 +132,22 @@ public enum CardManagement implements ICardManagement {
         writer.setIdCard(idCard);
         writer.writeWithMD5(data);
         writer.removeIDCard();
+    }
+
+    public int getKeyCount() {
+        return keyCount;
+    }
+
+    public HashMap<Integer, IDCard> getIdCardHashMap() {
+        return idCardHashMap;
+    }
+
+    public void setIdCardHashMap(HashMap<Integer, IDCard> idCardHashMap) {
+        this.idCardHashMap = idCardHashMap;
+    }
+
+    public void addCardToMap(IDCard idCard){
+        idCardHashMap.put(getKeyCount(), idCard);
+        keyCount++;
     }
 }

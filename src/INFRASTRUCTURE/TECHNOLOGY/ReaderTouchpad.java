@@ -4,9 +4,8 @@ public class ReaderTouchpad extends Reader {
 
     private Touchpad touchpad;
 
-    public ReaderTouchpad(IrisScanner scanner, FingerprintScanner fingerprintScanner,
-                          Touchpad touchpad){
-        super(scanner, fingerprintScanner);
+    public ReaderTouchpad(IrisScanner scanner, Touchpad touchpad){
+        super(scanner);
         this.touchpad = touchpad;
     }
 

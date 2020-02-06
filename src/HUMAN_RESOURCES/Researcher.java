@@ -1,5 +1,6 @@
 package HUMAN_RESOURCES;
 
+import INFRASTRUCTURE.EXPERIMENT.REPORT.Report;
 import LHC.IRODetector;
 
 public class Researcher extends Employee {
@@ -9,6 +10,10 @@ public class Researcher extends Employee {
 
     public Researcher(String name){
         super(name);
+    }
+
+    public void signReport(Report report) {
+        report.setSigned(true);
     }
 
     public boolean isSenior() {

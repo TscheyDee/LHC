@@ -1,14 +1,12 @@
 package INFRASTRUCTURE.MANAGEMENT;
 
 import HUMAN_RESOURCES.*;
-
 import java.util.HashMap;
 
 public enum EmployeeManagement implements IEmployeeManagement {
     instance;
 
     private HashMap<Integer, Employee> employeeMap;
-    private CardManagement cardManagement;
     private int keyCount = 0;
 
 
@@ -67,8 +65,12 @@ public enum EmployeeManagement implements IEmployeeManagement {
     }
 
     public void addEmployeeToMap(Employee employee){
-        employeeMap.put(keyCount, employee);
+        employeeMap.put(getKeyCount(), employee);
         keyCount++;
+    }
+
+    public void removeEmployeeFromMap(Employee employee, int key){
+        employeeMap.remove(key);
     }
 
     public void setEmployeeMap(HashMap<Integer, Employee> employeeMap) {

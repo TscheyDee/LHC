@@ -10,11 +10,7 @@ public class IrisScanner implements IScanner {
 
     }
 
-    public void scan(Person person){
-        iris = person.getIris();
-    }
-
-    public int[][] scan(){
-        return iris;
+    public int[][] scan(Person person){
+        return person.getIris();
     }
 }

@@ -11,15 +11,13 @@ public class Reader implements IReader{
     private IDCard idCard;
 
     private IrisScanner irisScanner;
-    private FingerprintScanner fingerprintScanner;
 
     private IReaderTechnology iReaderTechnology;
     private CryptogrpahyManagement cryptogrpahyManagement;
 
 
-    public Reader(IrisScanner irisScanner, FingerprintScanner fingerprintScanner){
+    public Reader(IrisScanner irisScanner){
         this.irisScanner = irisScanner;
-        this.fingerprintScanner = fingerprintScanner;
     }
 
     public void insertCard(IDCardVisitor idCard, IReaderTechnology iReaderTechnology){

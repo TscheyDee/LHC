@@ -1,5 +1,7 @@
 package HUMAN_RESOURCES;
 
+import INFRASTRUCTURE.EXPERIMENT.REPORT.Report;
+
 import java.util.Date;
 
 public class ScientificAssistant extends Employee {
@@ -25,5 +27,9 @@ public class ScientificAssistant extends Employee {
 
     public void setPeriodUntil(Date periodUntil) {
         this.periodUntil = periodUntil;
+    }
+
+    public void signReport(Report report) {
+        report.setSigned(true);
     }
 }

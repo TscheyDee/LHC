@@ -4,6 +4,5 @@ import HUMAN_RESOURCES.Person;
 
 public interface IScanner {
 
-    public void scan(Person person);
-
+    public int[][] scan(Person person);
 }

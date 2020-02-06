@@ -1,14 +1,14 @@
 package INFRASTRUCTURE.EXPERIMENT;
 
 public enum SearchAlgorithm {
-    NATIVE("LHC_Native", "Native"),
-    BOYER_MOORE("LHC_BoyerMoore", "BoyerMoore"),
-    KNUTH_MORRIS_PRATT("LHC_KnuthMorrisPratt", "KnuthMorrisPratt");
+    NATIVE("Native"),
+    BOYER_MOORE("BoyerMoore"),
+    KNUTH_MORRIS_PRATT("KnuthMorrisPratt");
 
-    private String path;
+    private String pathName;
     private String name;
 
-    SearchAlgorithm(String path, String name) {
+    SearchAlgorithm(String name) {
         this.name = name;
     }
 
@@ -17,6 +17,6 @@ public enum SearchAlgorithm {
     }
 
     public String getPath() {
-        return path + name + ".jar";
+        return "components/" + name + "/jar/" + name + ".jar";
     }
 }
