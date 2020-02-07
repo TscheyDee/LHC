@@ -14,6 +14,8 @@ import LHC.ProtonTrap;
 import LHC.ProtonTrapID;
 import LHC.Ring;
 
+import java.util.ArrayList;
+
 public class Application {
 
     public void main(String[] args){
@@ -24,6 +26,18 @@ public class Application {
         UseCase5();
         UseCase6();
         UseCase7();
+    }
+
+    public void init(){
+
+    }
+
+    public ArrayList<Integer> getValueList(){
+        return new ArrayList<>();
+    }
+
+    public void sort(){
+
     }
 
     private static void UseCase1(){
@@ -81,7 +95,7 @@ public class Application {
     }
 
     public static void eventBusTest() {
-        System.out.println("\n---------- eventBusTest() ----------");
+        System.out.println("\n--- Event Bus Test ");
         ProtonTrap protonTrap1 = new ProtonTrap(ProtonTrapID.A);
         ProtonTrap protonTrap2 = new ProtonTrap(ProtonTrapID.B);
 
@@ -104,6 +118,7 @@ public class Application {
     }
 
     public static void TestReportEngine(){
+        System.out.println("\n--- Report Engine Test ");
         DocumentDetector documentDetector = new DocumentDetector();
         ReportEngine reportEngine = new ReportEngine();
 

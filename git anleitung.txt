@@ -1,0 +1,16 @@
+git init
+- crate welcome.md "welcome"
+git add .
+git status
+git commit -m "welcome"
+git branch workspace-before-merge-conflict
+git checkout workspace-before-merge-conflict
+git add .
+git commit -m "readme.md before merge conflict"
+git diff master workspace-before-merge-conflict
+git branch branch-a
+git branch branch-b
+git branch
+git diff branch-a branch-b
+git log branch-a
+git log b
