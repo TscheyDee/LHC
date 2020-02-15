@@ -1,27 +1,45 @@
 package APPLICATION;
 
+import INFRASTRUCTURE.Building;
+import INFRASTRUCTURE.ENERGY.USP;
+import LHC.LargeHadronCollider;
+import LHC.Ring;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TestApplication {
+
     private Application application;
+    private LargeHadronCollider lhc;
+    private Building building;
+    private USP[] usps;
 
     @BeforeEach
     public void setup() {
         application = new Application();
         application.init();
+
+        Ring ring = new Ring();
+        building = new Building();
+        usps = new USP[2];
+        usps[0] = new USP();
+        usps[1] = new USP();
+        lhc = new LargeHadronCollider(building, usps, ring);
     }
 
     @Test
     @Order(1)
-    public void lengthBeforeSorting() {
-        assertEquals(10, application.getValueList().size());
+    public void lhcContainsRingAndUSPTest() {
+        //assertEquals(10, application.getValueList().size());
+        assertNotNull(lhc);
+        assertNotNull(lhc.getRing());
+        assertNotNull(lhc.getUsp());
+        assertEquals(lhc.getUsp().length, 2);
     }
 
     @Test
